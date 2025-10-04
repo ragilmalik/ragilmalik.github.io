@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malik - Python Developer & Content Marketing Specialist</title>
+    <meta name="description" content="Malik's portfolio showcasing Python projects, web development, content marketing tools, and ethical hacking learning journey.">
+    <meta name="keywords" content="Python, Web Development, Content Marketing, Ethical Hacking, Portfolio">
+    <meta name="author" content="Malik">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Malik - Python Developer & Content Marketing Specialist">
+    <meta property="og:description" content="Explore my journey in Python development, web technologies, and digital marketing automation.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ragilmalik.github.io">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-color-scheme="dark">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader">
+            <div class="loader-inner"></div>
+        </div>
+        <p class="loading-text">Loading Portfolio...</p>
+    </div>
+
+    <!-- Animated Background -->
+    <div id="particles-bg" class="particles-bg"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="#home" class="brand-link">
+                    <span class="brand-text">Malik</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="nav-toggle" id="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text animate-on-scroll">
+                    <h1 class="hero-title">
+                        Hi, I'm <span class="highlight">Malik</span>
+                        <br>
+                        <span class="typing-text" id="typing-text"></span>
+                    </h1>
+                    <p class="hero-description">
+                        Passionate developer from Semarang, Indonesia, exploring the world of Python, 
+                        web development, content marketing automation, and ethical hacking.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn btn--primary btn--lg">
+                            <i class="fas fa-code"></i>
+                            View My Work
+                        </a>
+                        <a href="#contact" class="btn btn--outline btn--lg">
+                            <i class="fas fa-envelope"></i>
+                            Get In Touch
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-count="5">0</span>
+                        <span class="stat-label">Public Repos</span>
+                    </div>
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-count="66">0</span>
+                        <span class="stat-label">Total Stars</span>
+                    </div>
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-count="19">0</span>
+                        <span class="stat-label">Total Forks</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">Get to know me better</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text animate-on-scroll">
+                    <div class="about-card">
+                        <div class="about-card-header">
+                            <img src="https://avatars.githubusercontent.com/u/37180346?v=4" alt="Malik" class="profile-image">
+                            <div class="profile-info">
+                                <h3>Malik</h3>
+                                <p class="profile-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Semarang, Central Java, Indonesia
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="about-card-body">
+                            <p>
+                                I'm a passionate beginner developer who started my journey in March 2018. 
+                                My interests span across Python development, web technologies, content marketing automation, 
+                                and ethical hacking principles.
+                            </p>
+                            <p>
+                                I believe in continuous learning and building projects that solve real-world problems. 
+                                From web scraping tools to marketing automation scripts, I enjoy creating solutions 
+                                that make processes more efficient.
+                            </p>
+                            
+                            <div class="journey-timeline">
+                                <div class="timeline-item">
+                                    <div class="timeline-date">2018</div>
+                                    <div class="timeline-content">
+                                        <h4>Started Coding Journey</h4>
+                                        <p>Joined GitHub and began exploring programming</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-date">2019-2022</div>
+                                    <div class="timeline-content">
+                                        <h4>Learning & Experimenting</h4>
+                                        <p>Explored Python, web development, and automation</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-date">2023-2024</div>
+                                    <div class="timeline-content">
+                                        <h4>Building Projects</h4>
+                                        <p>Created practical tools and expanded skill set</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-subtitle">Explore my latest work and contributions</p>
+            </div>
+            
+            <div class="projects-filters animate-on-scroll">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="python">Python</button>
+                <button class="filter-btn" data-filter="javascript">JavaScript</button>
+                <button class="filter-btn" data-filter="css">CSS</button>
+            </div>
+            
+            <div class="search-box animate-on-scroll">
+                <i class="fas fa-search"></i>
+                <input type="text" id="project-search" placeholder="Search projects...">
+            </div>
+            
+            <div class="projects-grid" id="projects-grid">
+                <!-- Repository cards will be dynamically generated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2 class="section-title">Skills & Technologies</h2>
+                <p class="section-subtitle">Technologies I work with</p>
+            </div>
+            
+            <div class="skills-grid">
+                <div class="skill-category animate-on-scroll">
+                    <h3 class="category-title">
+                        <i class="fas fa-code"></i>
+                        Programming Languages
+                    </h3>
+                    <div class="skills-list">
+                        <div class="skill-item" data-skill="python" data-level="70">
+                            <div class="skill-info">
+                                <span class="skill-name">Python</span>
+                                <span class="skill-percentage">70%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--skill-color: #3776ab"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item" data-skill="javascript" data-level="65">
+                            <div class="skill-info">
+                                <span class="skill-name">JavaScript</span>
+                                <span class="skill-percentage">65%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--skill-color: #f7df1e"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item" data-skill="html-css" data-level="80">
+                            <div class="skill-info">
+                                <span class="skill-name">HTML/CSS</span>
+                                <span class="skill-percentage">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--skill-color: #e34f26"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category animate-on-scroll">
+                    <h3 class="category-title">
+                        <i class="fas fa-globe"></i>
+                        Web Development
+                    </h3>
+                    <div class="skills-list">
+                        <div class="skill-item" data-skill="web-dev" data-level="60">
+                            <div class="skill-info">
+                                <span class="skill-name">Web Development</span>
+                                <span class="skill-percentage">60%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--skill-color: #61dafb"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category animate-on-scroll">
+                    <h3 class="category-title">
+                        <i class="fas fa-bullhorn"></i>
+                        Marketing & Security
+                    </h3>
+                    <div class="skills-list">
+                        <div class="skill-item" data-skill="content-marketing" data-level="50">
+                            <div class="skill-info">
+                                <span class="skill-name">Content Marketing</span>
+                                <span class="skill-percentage">50%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--skill-color: #ff6b6b"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item" data-skill="ethical-hacking" data-level="40">
+                            <div class="skill-info">
+                                <span class="skill-name">Ethical Hacking</span>
+                                <span class="skill-percentage">40%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--skill-color: #4ecdc4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Let's collaborate on something amazing</p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info animate-on-scroll">
+                    <div class="contact-card">
+                        <h3>Let's Connect</h3>
+                        <p>I'm always interested in new opportunities and collaborations. Feel free to reach out!</p>
+                        
+                        <div class="contact-methods">
+                            <a href="mailto:malik@example.com" class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <span>malik@example.com</span>
+                            </a>
+                            <a href="https://github.com/ragilmalik" target="_blank" class="contact-method">
+                                <i class="fab fa-github"></i>
+                                <span>github.com/ragilmalik</span>
+                            </a>
+                            <a href="https://linkedin.com/in/ragilmalik" target="_blank" class="contact-method">
+                                <i class="fab fa-linkedin"></i>
+                                <span>linkedin.com/in/ragilmalik</span>
+                            </a>
+                        </div>
+                        
+                        <div class="social-links">
+                            <a href="https://github.com/ragilmalik" target="_blank" class="social-link">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://linkedin.com/in/ragilmalik" target="_blank" class="social-link">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="https://twitter.com/ragilmalik" target="_blank" class="social-link">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="mailto:malik@example.com" class="social-link">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form-container animate-on-scroll">
+                    <form class="contact-form" id="contact-form">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" id="subject" name="subject" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn--primary btn--full-width">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Malik</h3>
+                    <p>Python Developer & Content Marketing Specialist</p>
+                    <p class="footer-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Semarang, Central Java, Indonesia
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <a href="#home">Home</a>
+                        <a href="#about">About</a>
+                        <a href="#projects">Projects</a>
+                        <a href="#skills">Skills</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Connect</h4>
+                        <a href="https://github.com/ragilmalik" target="_blank">GitHub</a>
+                        <a href="https://linkedin.com/in/ragilmalik" target="_blank">LinkedIn</a>
+                        <a href="https://twitter.com/ragilmalik" target="_blank">Twitter</a>
+                        <a href="mailto:malik@example.com">Email</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Malik. Built with ❤️ using HTML, CSS & JavaScript</p>
+                <p class="footer-note">Ready for GitHub Pages deployment</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
