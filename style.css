@@ -1326,17 +1326,19 @@ body::after {
 }
 
 .stat-panel {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 16px;
   padding: var(--space-xl);
   backdrop-filter: blur(20px);
   transition: all var(--duration-fast) ease;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
 
 .stat-panel:hover {
   transform: translateY(-5px);
-  box-shadow: var(--glass-shadow);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .panel-header {
@@ -1394,8 +1396,9 @@ body::after {
 
 .stat-name {
   font-size: var(--font-sm);
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.9);
   margin-top: var(--space-xs);
+  font-weight: 500;
 }
 
 /* Activity Grid */
