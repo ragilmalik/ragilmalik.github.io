@@ -341,33 +341,34 @@ class AdvancedPortfolio {
             const geometry = new THREE.BufferGeometry();
             geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
             geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-            geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+            geometry.setAttribute('particleSize', new THREE.BufferAttribute(sizes, 1));
             
             const material = new THREE.ShaderMaterial({
                 uniforms: {
                     time: { value: 0 }
                 },
                 vertexShader: `
-                    attribute float size;
-                    attribute vec3 color;
+                    precision highp float;
+                    attribute float particleSize;
                     varying vec3 vColor;
                     uniform float time;
-                    
+
                     void main() {
                         vColor = color;
                         vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
                         gl_Position = projectionMatrix * mvPosition;
-                        gl_PointSize = size * (300.0 / -mvPosition.z) * (1.0 + sin(time * 2.0 + position.x * 0.01) * 0.5);
+                        gl_PointSize = particleSize * (300.0 / -mvPosition.z) * (1.0 + sin(time * 2.0 + position.x * 0.01) * 0.5);
                     }
                 `,
                 fragmentShader: `
+                    precision highp float;
                     varying vec3 vColor;
-                    
+
                     void main() {
-                        float distance = length(gl_PointCoord - vec2(0.5));
-                        if (distance > 0.5) discard;
-                        
-                        float alpha = (1.0 - distance * 2.0) * 0.8;
+                        float dist = length(gl_PointCoord - vec2(0.5));
+                        if (dist > 0.5) discard;
+
+                        float alpha = (1.0 - dist * 2.0) * 0.8;
                         gl_FragColor = vec4(vColor, alpha);
                     }
                 `,
