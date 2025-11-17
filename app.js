@@ -24,16 +24,52 @@ class AdvancedPortfolio {
         // Real repository data from GitHub API
         this.repositories = [
             {
-                name: "ragilmalik.github.io",
-                description: "GitHub Pages Portfolio website showcasing projects and skills",
-                language: "CSS",
+                name: "CloudPaste",
+                description: "A Cloudflare-based online text/large file sharing platform that supports multiple syntax Markdown rendering, self-destructing messages, S3 aggregated storage, password protection, and more.",
+                language: "JavaScript",
                 stars: 0,
                 forks: 0,
-                updated: "2025-10-04",
+                updated: "2025-11-08",
+                url: "https://github.com/ragilmalik/CloudPaste",
+                topics: ["cloudflare", "file-sharing", "markdown", "webdav"],
+                created_at: "2025-11-08",
+                size: 60212
+            },
+            {
+                name: "microfeed",
+                description: "A lightweight CMS self-hosted on Cloudflare, for podcasts, blogs, photos, videos, documents, and curated URLs.",
+                language: "JavaScript",
+                stars: 0,
+                forks: 0,
+                updated: "2025-10-16",
+                url: "https://github.com/ragilmalik/microfeed",
+                topics: ["cloudflare", "cms", "podcasts", "blogs"],
+                created_at: "2025-10-16",
+                size: 1501
+            },
+            {
+                name: "Python-CLI-Email-Validator",
+                description: "Command-line email validation tool built with Python",
+                language: "Python",
+                stars: 0,
+                forks: 0,
+                updated: "2025-10-12",
+                url: "https://github.com/ragilmalik/Python-CLI-Email-Validator",
+                topics: ["python", "cli", "email", "validation"],
+                created_at: "2025-10-12",
+                size: 8
+            },
+            {
+                name: "ragilmalik.github.io",
+                description: "GitHub Pages Portfolio website showcasing projects and skills",
+                language: "JavaScript",
+                stars: 0,
+                forks: 0,
+                updated: "2025-11-10",
                 url: "https://github.com/ragilmalik/ragilmalik.github.io",
-                topics: ["portfolio", "github-pages", "css"],
+                topics: ["portfolio", "github-pages", "javascript", "threejs"],
                 created_at: "2025-10-04",
-                size: 150
+                size: 97
             },
             {
                 name: "Python-GUI-Duplicate-File-Finder",
@@ -45,7 +81,7 @@ class AdvancedPortfolio {
                 url: "https://github.com/ragilmalik/Python-GUI-Duplicate-File-Finder",
                 topics: ["python", "gui", "duplicate-finder", "windows"],
                 created_at: "2025-09-04",
-                size: 245
+                size: 5
             },
             {
                 name: "Python-GUI-Clipboard-Manager",
@@ -53,23 +89,11 @@ class AdvancedPortfolio {
                 language: "Python",
                 stars: 0,
                 forks: 0,
-                updated: "2025-08-31",
+                updated: "2025-09-04",
                 url: "https://github.com/ragilmalik/Python-GUI-Clipboard-Manager",
                 topics: ["python", "clipboard", "gui", "pyside6", "sqlite"],
                 created_at: "2025-08-31",
-                size: 320
-            },
-            {
-                name: "Python-GUI-Mover",
-                description: "A Minimalist python GUI to move file because Windows's one is annoying",
-                language: "Python",
-                stars: 0,
-                forks: 0,
-                updated: "2025-08-20",
-                url: "https://github.com/ragilmalik/Python-GUI-Mover",
-                topics: ["python", "gui", "file-manager", "windows"],
-                created_at: "2025-08-20",
-                size: 125
+                size: 10
             },
             {
                 name: "Python-GUI-Media-Organizer",
@@ -81,7 +105,19 @@ class AdvancedPortfolio {
                 url: "https://github.com/ragilmalik/Python-GUI-Media-Organizer",
                 topics: ["python", "gui", "media", "organizer"],
                 created_at: "2025-08-17",
-                size: 180
+                size: 18
+            },
+            {
+                name: "Python-GUI-Mover",
+                description: "A Minimalist python GUI to move file because Windows's one is annoying",
+                language: "Python",
+                stars: 0,
+                forks: 0,
+                updated: "2025-08-20",
+                url: "https://github.com/ragilmalik/Python-GUI-Mover",
+                topics: ["python", "gui", "file-manager", "windows"],
+                created_at: "2025-08-17",
+                size: 33
             },
             {
                 name: "RPG",
@@ -93,7 +129,7 @@ class AdvancedPortfolio {
                 url: "https://github.com/ragilmalik/RPG",
                 topics: ["python", "password-generator", "security"],
                 created_at: "2022-10-17",
-                size: 95
+                size: 11289
             }
         ];
         
@@ -756,17 +792,17 @@ class AdvancedPortfolio {
         try {
             console.log('Creating language chart...');
             const languageData = {
-                'Python': 83.33,
-                'CSS': 16.67
+                'Python': 66.67,
+                'JavaScript': 33.33
             };
-            
+
             new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     labels: Object.keys(languageData),
                     datasets: [{
                         data: Object.values(languageData),
-                        backgroundColor: ['#1FB8CD', '#FFC185'],
+                        backgroundColor: ['#3776ab', '#F7DF1E'],
                         borderColor: ['#00ffff', '#ffffff'],
                         borderWidth: 2
                     }]
@@ -807,12 +843,12 @@ class AdvancedPortfolio {
                 <h4 style="margin-bottom: 15px;">Language Distribution</h4>
                 <div style="display: flex; justify-content: space-around; align-items: center;">
                     <div style="text-align: center;">
-                        <div style="width: 60px; height: 60px; background: #1FB8CD; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold;">83%</div>
+                        <div style="width: 60px; height: 60px; background: #3776ab; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold;">67%</div>
                         <div>Python</div>
                     </div>
                     <div style="text-align: center;">
-                        <div style="width: 60px; height: 60px; background: #FFC185; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold;">17%</div>
-                        <div>CSS</div>
+                        <div style="width: 60px; height: 60px; background: #F7DF1E; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000;">33%</div>
+                        <div>JavaScript</div>
                     </div>
                 </div>
             </div>
@@ -840,7 +876,8 @@ class AdvancedPortfolio {
                 { x: '2022-10', y: 1 },
                 { x: '2025-08', y: 4 },
                 { x: '2025-09', y: 5 },
-                { x: '2025-10', y: 6 }
+                { x: '2025-10', y: 8 },
+                { x: '2025-11', y: 9 }
             ];
             
             new Chart(ctx, {
@@ -906,20 +943,24 @@ class AdvancedPortfolio {
                 <h4 style="margin-bottom: 15px;">Repository Timeline</h4>
                 <div style="display: flex; justify-content: space-between; align-items: end; height: 100px;">
                     <div style="text-align: center;">
-                        <div style="width: 20px; height: 20px; background: #00ffff; margin: 0 auto 5px;"></div>
+                        <div style="width: 20px; height: 11px; background: #00ffff; margin: 0 auto 5px;"></div>
                         <small>2022</small><br><small>1 repo</small>
                     </div>
                     <div style="text-align: center;">
-                        <div style="width: 20px; height: 60px; background: #00ffff; margin: 0 auto 5px;"></div>
-                        <small>Aug 2025</small><br><small>3 repos</small>
+                        <div style="width: 20px; height: 44px; background: #00ffff; margin: 0 auto 5px;"></div>
+                        <small>Aug 2025</small><br><small>4 repos</small>
                     </div>
                     <div style="text-align: center;">
-                        <div style="width: 20px; height: 80px; background: #00ffff; margin: 0 auto 5px;"></div>
-                        <small>Sep 2025</small><br><small>1 repo</small>
+                        <div style="width: 20px; height: 56px; background: #00ffff; margin: 0 auto 5px;"></div>
+                        <small>Sep 2025</small><br><small>5 repos</small>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 20px; height: 89px; background: #00ffff; margin: 0 auto 5px;"></div>
+                        <small>Oct 2025</small><br><small>8 repos</small>
                     </div>
                     <div style="text-align: center;">
                         <div style="width: 20px; height: 100px; background: #00ffff; margin: 0 auto 5px;"></div>
-                        <small>Oct 2025</small><br><small>1 repo</small>
+                        <small>Nov 2025</small><br><small>9 repos</small>
                     </div>
                 </div>
             </div>
