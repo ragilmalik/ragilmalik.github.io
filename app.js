@@ -688,79 +688,81 @@ class AdvancedPortfolio {
             console.warn('GSAP or ScrollTrigger not available, using fallback animations');
             return;
         }
-        
+
         try {
             // Register ScrollTrigger plugin
             gsap.registerPlugin(ScrollTrigger);
-            
-            // Section animations
+
+            // Section animations - only animate if elements exist
             gsap.utils.toArray('section').forEach(section => {
-                gsap.from(section.querySelectorAll('.section-title, .section-subtitle'), {
-                    duration: 1,
+                const titleElements = section.querySelectorAll('.section-title, .section-subtitle');
+                if (titleElements.length > 0) {
+                    gsap.from(titleElements, {
+                        duration: 1,
+                        y: 50,
+                        opacity: 0,
+                        stagger: 0.2,
+                        ease: 'power2.out',
+                        scrollTrigger: {
+                            trigger: section,
+                            start: 'top 80%',
+                            end: 'bottom 20%',
+                            toggleActions: 'play none none reverse'
+                        }
+                    });
+                }
+            });
+
+            // Stats panels animation - only if elements exist
+            const statPanels = document.querySelectorAll('.stat-panel');
+            if (statPanels.length > 0) {
+                gsap.from('.stat-panel', {
+                    duration: 0.8,
                     y: 50,
+                    opacity: 0,
+                    stagger: 0.1,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: '.stats-section',
+                        start: 'top 80%'
+                    }
+                });
+            }
+
+            // Skills animation - only if elements exist
+            const skillCategories = document.querySelectorAll('.skill-category');
+            if (skillCategories.length > 0) {
+                gsap.from('.skill-category', {
+                    duration: 0.8,
+                    x: -50,
                     opacity: 0,
                     stagger: 0.2,
                     ease: 'power2.out',
                     scrollTrigger: {
-                        trigger: section,
-                        start: 'top 80%',
-                        end: 'bottom 20%',
-                        toggleActions: 'play none none reverse'
+                        trigger: '.skills-section',
+                        start: 'top 80%'
                     }
                 });
-            });
-            
-            // Stats panels animation
-            gsap.from('.stat-panel', {
-                duration: 0.8,
-                y: 50,
-                opacity: 0,
-                stagger: 0.1,
-                ease: 'power2.out',
-                scrollTrigger: {
-                    trigger: '.stats-section',
-                    start: 'top 80%'
-                }
-            });
-            
-            // Skills animation
-            gsap.from('.skill-category', {
-                duration: 0.8,
-                x: -50,
-                opacity: 0,
-                stagger: 0.2,
-                ease: 'power2.out',
-                scrollTrigger: {
-                    trigger: '.skills-section',
-                    start: 'top 80%'
-                }
-            });
-            
-            // Timeline animation
-            gsap.from('.timeline-item', {
-                duration: 0.8,
-                x: (index) => index % 2 === 0 ? -100 : 100,
-                opacity: 0,
-                stagger: 0.2,
-                ease: 'power2.out',
-                scrollTrigger: {
-                    trigger: '.timeline-section',
-                    start: 'top 80%'
-                }
-            });
-            
-            // Contact section animation
-            gsap.from('.contact-item, .contact-form-container', {
-                duration: 0.8,
-                y: 50,
-                opacity: 0,
-                stagger: 0.1,
-                ease: 'power2.out',
-                scrollTrigger: {
-                    trigger: '.contact-section',
-                    start: 'top 80%'
-                }
-            });
+            }
+
+            // Timeline animation - skip since timeline items are created dynamically after this
+            // Timeline animations will be set up in setupTimeline() method
+
+            // Contact section animation - only if elements exist
+            const contactElements = document.querySelectorAll('.contact-item, .contact-form-container');
+            if (contactElements.length > 0) {
+                gsap.from('.contact-item, .contact-form-container', {
+                    duration: 0.8,
+                    y: 50,
+                    opacity: 0,
+                    stagger: 0.1,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: '.contact-section',
+                        start: 'top 80%'
+                    }
+                });
+            }
         } catch (error) {
             console.error('Error setting up GSAP animations:', error);
         }
@@ -1095,7 +1097,7 @@ class AdvancedPortfolio {
         timelineData.forEach((item, index) => {
             const timelineItem = document.createElement('div');
             timelineItem.className = 'timeline-item';
-            
+
             timelineItem.innerHTML = `
                 <div class="timeline-content">
                     <div class="timeline-date">${item.date}</div>
@@ -1104,9 +1106,27 @@ class AdvancedPortfolio {
                 </div>
                 <div class="timeline-dot"></div>
             `;
-            
+
             timelineItems.appendChild(timelineItem);
         });
+
+        // Setup GSAP animation for timeline items after they're created
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+            const timelineItemElements = document.querySelectorAll('.timeline-item');
+            if (timelineItemElements.length > 0) {
+                gsap.from('.timeline-item', {
+                    duration: 0.8,
+                    x: (index) => index % 2 === 0 ? -100 : 100,
+                    opacity: 0,
+                    stagger: 0.2,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: '.timeline-section',
+                        start: 'top 80%'
+                    }
+                });
+            }
+        }
     }
 
     startTypingAnimation() {
