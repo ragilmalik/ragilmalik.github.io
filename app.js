@@ -717,15 +717,21 @@ class AdvancedPortfolio {
             // Stats panels animation - only if elements exist
             const statPanels = document.querySelectorAll('.stat-panel');
             if (statPanels.length > 0) {
+                // First ensure panels are visible by default
+                gsap.set('.stat-panel', { opacity: 1, y: 0, clearProps: 'transform' });
+
+                // Then apply scroll-triggered animation
                 gsap.from('.stat-panel', {
                     duration: 0.8,
                     y: 50,
                     opacity: 0,
                     stagger: 0.1,
                     ease: 'power2.out',
+                    immediateRender: false,
                     scrollTrigger: {
                         trigger: '.stats-section',
-                        start: 'top 80%'
+                        start: 'top 80%',
+                        once: true
                     }
                 });
             }
