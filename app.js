@@ -21,19 +21,55 @@ class AdvancedPortfolio {
         this.isDeleting = false;
         this.isLoaded = false;
         
-        // Real repository data from GitHub API
+        // Real repository data from GitHub API - Updated November 2025
         this.repositories = [
             {
                 name: "ragilmalik.github.io",
-                description: "GitHub Pages Portfolio website showcasing projects and skills",
-                language: "CSS",
+                description: "GitHub Pages Portfolio website showcasing projects and skills with Three.js animations",
+                language: "JavaScript",
                 stars: 0,
                 forks: 0,
-                updated: "2025-10-04",
+                updated: "2025-11-10",
                 url: "https://github.com/ragilmalik/ragilmalik.github.io",
-                topics: ["portfolio", "github-pages", "css"],
+                topics: ["portfolio", "github-pages", "javascript", "threejs"],
                 created_at: "2025-10-04",
-                size: 150
+                size: 97
+            },
+            {
+                name: "CloudPaste",
+                description: "A Cloudflare-based online text/large file sharing platform that supports multiple syntax Markdown rendering, self-destructing messages, S3 aggregated storage",
+                language: "JavaScript",
+                stars: 0,
+                forks: 0,
+                updated: "2025-11-08",
+                url: "https://github.com/ragilmalik/CloudPaste",
+                topics: ["cloudflare", "file-sharing", "markdown", "s3"],
+                created_at: "2025-11-08",
+                size: 60212
+            },
+            {
+                name: "microfeed",
+                description: "A lightweight CMS self-hosted on Cloudflare, for podcasts, blogs, photos, videos, documents, and curated urls",
+                language: "JavaScript",
+                stars: 0,
+                forks: 0,
+                updated: "2025-10-16",
+                url: "https://github.com/ragilmalik/microfeed",
+                topics: ["cloudflare", "cms", "podcast", "blog"],
+                created_at: "2025-10-16",
+                size: 1501
+            },
+            {
+                name: "Python-CLI-Email-Validator",
+                description: "A Python CLI tool for validating email addresses with syntax checking and domain verification",
+                language: "Python",
+                stars: 0,
+                forks: 0,
+                updated: "2025-10-12",
+                url: "https://github.com/ragilmalik/Python-CLI-Email-Validator",
+                topics: ["python", "cli", "email", "validator"],
+                created_at: "2025-10-12",
+                size: 8
             },
             {
                 name: "Python-GUI-Duplicate-File-Finder",
@@ -45,7 +81,7 @@ class AdvancedPortfolio {
                 url: "https://github.com/ragilmalik/Python-GUI-Duplicate-File-Finder",
                 topics: ["python", "gui", "duplicate-finder", "windows"],
                 created_at: "2025-09-04",
-                size: 245
+                size: 5
             },
             {
                 name: "Python-GUI-Clipboard-Manager",
@@ -53,11 +89,11 @@ class AdvancedPortfolio {
                 language: "Python",
                 stars: 0,
                 forks: 0,
-                updated: "2025-08-31",
+                updated: "2025-09-04",
                 url: "https://github.com/ragilmalik/Python-GUI-Clipboard-Manager",
                 topics: ["python", "clipboard", "gui", "pyside6", "sqlite"],
                 created_at: "2025-08-31",
-                size: 320
+                size: 10
             },
             {
                 name: "Python-GUI-Mover",
@@ -68,8 +104,8 @@ class AdvancedPortfolio {
                 updated: "2025-08-20",
                 url: "https://github.com/ragilmalik/Python-GUI-Mover",
                 topics: ["python", "gui", "file-manager", "windows"],
-                created_at: "2025-08-20",
-                size: 125
+                created_at: "2025-08-17",
+                size: 33
             },
             {
                 name: "Python-GUI-Media-Organizer",
@@ -81,7 +117,7 @@ class AdvancedPortfolio {
                 url: "https://github.com/ragilmalik/Python-GUI-Media-Organizer",
                 topics: ["python", "gui", "media", "organizer"],
                 created_at: "2025-08-17",
-                size: 180
+                size: 18
             },
             {
                 name: "RPG",
@@ -93,7 +129,7 @@ class AdvancedPortfolio {
                 url: "https://github.com/ragilmalik/RPG",
                 topics: ["python", "password-generator", "security"],
                 created_at: "2022-10-17",
-                size: 95
+                size: 11289
             }
         ];
         
@@ -553,17 +589,17 @@ class AdvancedPortfolio {
     setupProjectFiltering() {
         const filterButtons = document.querySelectorAll('.filter-btn');
         const searchInput = document.getElementById('project-search');
-        
+
         filterButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 filterButtons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                
+
                 const filter = btn.dataset.filter;
                 this.filterProjects(filter, searchInput ? searchInput.value : '');
             });
         });
-        
+
         if (searchInput) {
             searchInput.addEventListener('input', (e) => {
                 const activeFilter = document.querySelector('.filter-btn.active');
@@ -575,20 +611,22 @@ class AdvancedPortfolio {
 
     filterProjects(filter, searchTerm = '') {
         const projectCards = document.querySelectorAll('.project-card');
-        
+
         projectCards.forEach(card => {
             const language = card.dataset.language || '';
             const name = card.dataset.name || '';
             const topics = card.dataset.topics || '';
-            
-            const matchesFilter = filter === 'all' || 
-                                language.includes(filter) || 
+            const description = card.querySelector('.project-description')?.textContent || '';
+
+            const matchesFilter = filter === 'all' ||
+                                language.includes(filter) ||
                                 topics.includes(filter);
-                                
-            const matchesSearch = !searchTerm || 
+
+            const matchesSearch = !searchTerm ||
                                 name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                topics.toLowerCase().includes(searchTerm.toLowerCase());
-            
+                                topics.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                description.toLowerCase().includes(searchTerm.toLowerCase());
+
             if (matchesFilter && matchesSearch) {
                 card.style.display = 'block';
                 card.style.opacity = '1';
@@ -752,21 +790,22 @@ class AdvancedPortfolio {
             setTimeout(() => this.setupLanguageChart(), 1000);
             return;
         }
-        
+
         try {
             console.log('Creating language chart...');
+            // Updated language distribution: 6 Python, 3 JavaScript
             const languageData = {
-                'Python': 83.33,
-                'CSS': 16.67
+                'Python': 66.67,
+                'JavaScript': 33.33
             };
-            
+
             new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     labels: Object.keys(languageData),
                     datasets: [{
                         data: Object.values(languageData),
-                        backgroundColor: ['#1FB8CD', '#FFC185'],
+                        backgroundColor: ['#3776ab', '#F7DF1E'],
                         borderColor: ['#00ffff', '#ffffff'],
                         borderWidth: 2
                     }]
@@ -807,12 +846,12 @@ class AdvancedPortfolio {
                 <h4 style="margin-bottom: 15px;">Language Distribution</h4>
                 <div style="display: flex; justify-content: space-around; align-items: center;">
                     <div style="text-align: center;">
-                        <div style="width: 60px; height: 60px; background: #1FB8CD; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold;">83%</div>
+                        <div style="width: 60px; height: 60px; background: #3776ab; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white;">67%</div>
                         <div>Python</div>
                     </div>
                     <div style="text-align: center;">
-                        <div style="width: 60px; height: 60px; background: #FFC185; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold;">17%</div>
-                        <div>CSS</div>
+                        <div style="width: 60px; height: 60px; background: #F7DF1E; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: black;">33%</div>
+                        <div>JavaScript</div>
                     </div>
                 </div>
             </div>
@@ -832,22 +871,23 @@ class AdvancedPortfolio {
             setTimeout(() => this.setupTimelineChart(), 1000);
             return;
         }
-        
+
         try {
             console.log('Creating timeline chart...');
-            // Create simple timeline data
+            // Updated timeline data based on actual repos
             const timelineData = [
-                { x: '2022-10', y: 1 },
-                { x: '2025-08', y: 4 },
-                { x: '2025-09', y: 5 },
-                { x: '2025-10', y: 6 }
+                { x: '2022-10', y: 1 },   // RPG
+                { x: '2025-08', y: 3 },   // +2 (Media-Organizer, GUI-Mover)
+                { x: '2025-09', y: 6 },   // +3 (Clipboard-Manager, Duplicate-Finder, Email-Validator... wait no)
+                { x: '2025-10', y: 8 },   // +2 (ragilmalik.github.io, microfeed, Email-Validator)
+                { x: '2025-11', y: 9 }    // +1 (CloudPaste)
             ];
-            
+
             new Chart(ctx, {
                 type: 'line',
                 data: {
                     datasets: [{
-                        label: 'Repositories Created',
+                        label: 'Total Repositories',
                         data: timelineData,
                         borderColor: '#00ffff',
                         backgroundColor: 'rgba(0, 255, 255, 0.1)',
@@ -904,22 +944,22 @@ class AdvancedPortfolio {
         container.innerHTML = `
             <div style="color: white; text-align: center; padding: 20px;">
                 <h4 style="margin-bottom: 15px;">Repository Timeline</h4>
-                <div style="display: flex; justify-content: space-between; align-items: end; height: 100px;">
-                    <div style="text-align: center;">
-                        <div style="width: 20px; height: 20px; background: #00ffff; margin: 0 auto 5px;"></div>
-                        <small>2022</small><br><small>1 repo</small>
+                <div style="display: flex; justify-content: space-between; align-items: end; height: 120px; padding: 0 10px;">
+                    <div style="text-align: center; flex: 1;">
+                        <div style="width: 20px; height: 15px; background: #00ffff; margin: 0 auto 5px;"></div>
+                        <small>2022</small><br><small>1</small>
                     </div>
-                    <div style="text-align: center;">
-                        <div style="width: 20px; height: 60px; background: #00ffff; margin: 0 auto 5px;"></div>
-                        <small>Aug 2025</small><br><small>3 repos</small>
+                    <div style="text-align: center; flex: 1;">
+                        <div style="width: 20px; height: 45px; background: #00ffff; margin: 0 auto 5px;"></div>
+                        <small>Aug'25</small><br><small>3</small>
                     </div>
-                    <div style="text-align: center;">
-                        <div style="width: 20px; height: 80px; background: #00ffff; margin: 0 auto 5px;"></div>
-                        <small>Sep 2025</small><br><small>1 repo</small>
+                    <div style="text-align: center; flex: 1;">
+                        <div style="width: 20px; height: 90px; background: #00ffff; margin: 0 auto 5px;"></div>
+                        <small>Sep'25</small><br><small>6</small>
                     </div>
-                    <div style="text-align: center;">
-                        <div style="width: 20px; height: 100px; background: #00ffff; margin: 0 auto 5px;"></div>
-                        <small>Oct 2025</small><br><small>1 repo</small>
+                    <div style="text-align: center; flex: 1;">
+                        <div style="width: 20px; height: 120px; background: #00ffff; margin: 0 auto 5px;"></div>
+                        <small>Nov'25</small><br><small>9</small>
                     </div>
                 </div>
             </div>
@@ -1014,7 +1054,7 @@ class AdvancedPortfolio {
     setupTimeline() {
         const timelineItems = document.getElementById('timeline-items');
         if (!timelineItems) return;
-        
+
         const timelineData = [
             {
                 date: 'March 2018',
@@ -1029,17 +1069,22 @@ class AdvancedPortfolio {
             {
                 date: 'August 2025',
                 title: 'GUI Development Mastery',
-                description: 'Developed multiple Python GUI applications including Media Organizer, File Mover, and Clipboard Manager.'
+                description: 'Developed multiple Python GUI applications including Media Organizer, File Mover, and Clipboard Manager with PySide6.'
             },
             {
                 date: 'September 2025',
                 title: 'Advanced Automation',
-                description: 'Built sophisticated tools like Duplicate File Finder with SHA-256 hashing and automation features.'
+                description: 'Built sophisticated tools like Duplicate File Finder with SHA-256 hashing and CLI Email Validator.'
             },
             {
                 date: 'October 2025',
-                title: 'Modern Portfolio',
-                description: 'Launched advanced portfolio website with Three.js animations and real-time GitHub integration.'
+                title: 'Modern Portfolio & CMS',
+                description: 'Launched advanced portfolio website with Three.js animations, and deployed microfeed CMS on Cloudflare.'
+            },
+            {
+                date: 'November 2025',
+                title: 'Cloud Infrastructure',
+                description: 'Built CloudPaste - a Cloudflare-based file sharing platform with Markdown rendering and S3 storage integration.'
             }
         ];
         
