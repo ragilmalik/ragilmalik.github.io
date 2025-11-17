@@ -29,7 +29,7 @@ class AdvancedPortfolio {
                 language: "JavaScript",
                 stars: 0,
                 forks: 0,
-                updated: "2025-11-10",
+                updated: "2025-11-17",
                 url: "https://github.com/ragilmalik/ragilmalik.github.io",
                 topics: ["portfolio", "github-pages", "javascript", "threejs"],
                 created_at: "2025-10-04",
@@ -874,13 +874,13 @@ class AdvancedPortfolio {
 
         try {
             console.log('Creating timeline chart...');
-            // Updated timeline data based on actual repos
+            // Updated timeline data based on actual repos - Corrected cumulative totals
             const timelineData = [
-                { x: '2022-10', y: 1 },   // RPG
-                { x: '2025-08', y: 3 },   // +2 (Media-Organizer, GUI-Mover)
-                { x: '2025-09', y: 6 },   // +3 (Clipboard-Manager, Duplicate-Finder, Email-Validator... wait no)
-                { x: '2025-10', y: 8 },   // +2 (ragilmalik.github.io, microfeed, Email-Validator)
-                { x: '2025-11', y: 9 }    // +1 (CloudPaste)
+                { x: '2022-10', y: 1 },   // RPG (1 total)
+                { x: '2025-08', y: 4 },   // +3 (Media-Organizer Aug 17, GUI-Mover Aug 17, Clipboard-Manager Aug 31) = 4 total
+                { x: '2025-09', y: 5 },   // +1 (Duplicate-File-Finder Sep 4) = 5 total
+                { x: '2025-10', y: 8 },   // +3 (ragilmalik.github.io Oct 4, Email-Validator Oct 12, microfeed Oct 16) = 8 total
+                { x: '2025-11', y: 9 }    // +1 (CloudPaste Nov 8) = 9 total
             ];
 
             new Chart(ctx, {
@@ -946,16 +946,20 @@ class AdvancedPortfolio {
                 <h4 style="margin-bottom: 15px;">Repository Timeline</h4>
                 <div style="display: flex; justify-content: space-between; align-items: end; height: 120px; padding: 0 10px;">
                     <div style="text-align: center; flex: 1;">
-                        <div style="width: 20px; height: 15px; background: #00ffff; margin: 0 auto 5px;"></div>
-                        <small>2022</small><br><small>1</small>
+                        <div style="width: 20px; height: 13px; background: #00ffff; margin: 0 auto 5px;"></div>
+                        <small>Oct'22</small><br><small>1</small>
                     </div>
                     <div style="text-align: center; flex: 1;">
-                        <div style="width: 20px; height: 45px; background: #00ffff; margin: 0 auto 5px;"></div>
-                        <small>Aug'25</small><br><small>3</small>
+                        <div style="width: 20px; height: 53px; background: #00ffff; margin: 0 auto 5px;"></div>
+                        <small>Aug'25</small><br><small>4</small>
                     </div>
                     <div style="text-align: center; flex: 1;">
-                        <div style="width: 20px; height: 90px; background: #00ffff; margin: 0 auto 5px;"></div>
-                        <small>Sep'25</small><br><small>6</small>
+                        <div style="width: 20px; height: 67px; background: #00ffff; margin: 0 auto 5px;"></div>
+                        <small>Sep'25</small><br><small>5</small>
+                    </div>
+                    <div style="text-align: center; flex: 1;">
+                        <div style="width: 20px; height: 107px; background: #00ffff; margin: 0 auto 5px;"></div>
+                        <small>Oct'25</small><br><small>8</small>
                     </div>
                     <div style="text-align: center; flex: 1;">
                         <div style="width: 20px; height: 120px; background: #00ffff; margin: 0 auto 5px;"></div>
