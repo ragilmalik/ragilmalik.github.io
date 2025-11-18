@@ -730,19 +730,26 @@ class AdvancedPortfolio {
             gsap.utils.toArray('section').forEach(section => {
                 const titleElements = section.querySelectorAll('.section-title, .section-subtitle');
                 if (titleElements.length > 0) {
-                    gsap.from(titleElements, {
-                        duration: 1,
-                        y: 50,
-                        opacity: 0,
-                        stagger: 0.2,
-                        ease: 'power2.out',
-                        scrollTrigger: {
-                            trigger: section,
-                            start: 'top 80%',
-                            end: 'bottom 20%',
-                            toggleActions: 'play none none reverse'
+                    // Ensure section titles are visible
+                    gsap.set(titleElements, { clearProps: 'all' });
+
+                    gsap.fromTo(titleElements,
+                        { y: 50, opacity: 0 },
+                        {
+                            duration: 1,
+                            y: 0,
+                            opacity: 1,
+                            stagger: 0.2,
+                            ease: 'power2.out',
+                            clearProps: 'transform',
+                            scrollTrigger: {
+                                trigger: section,
+                                start: 'top 80%',
+                                end: 'bottom 20%',
+                                toggleActions: 'play none none reverse'
+                            }
                         }
-                    });
+                    );
                 }
             });
 
@@ -750,38 +757,48 @@ class AdvancedPortfolio {
             const statPanels = document.querySelectorAll('.stat-panel');
             if (statPanels.length > 0) {
                 // First ensure panels are visible by default
-                gsap.set('.stat-panel', { opacity: 1, y: 0, clearProps: 'transform' });
+                gsap.set('.stat-panel', { clearProps: 'all' });
 
                 // Then apply scroll-triggered animation
-                gsap.from('.stat-panel', {
-                    duration: 0.8,
-                    y: 50,
-                    opacity: 0,
-                    stagger: 0.1,
-                    ease: 'power2.out',
-                    immediateRender: false,
-                    scrollTrigger: {
-                        trigger: '.stats-section',
-                        start: 'top 80%',
-                        once: true
+                gsap.fromTo('.stat-panel',
+                    { y: 50, opacity: 0 },
+                    {
+                        duration: 0.8,
+                        y: 0,
+                        opacity: 1,
+                        stagger: 0.1,
+                        ease: 'power2.out',
+                        clearProps: 'transform',
+                        scrollTrigger: {
+                            trigger: '.stats-section',
+                            start: 'top 80%',
+                            once: true
+                        }
                     }
-                });
+                );
             }
 
             // Skills animation - only if elements exist
             const skillCategories = document.querySelectorAll('.skill-category');
             if (skillCategories.length > 0) {
-                gsap.from('.skill-category', {
-                    duration: 0.8,
-                    x: -50,
-                    opacity: 0,
-                    stagger: 0.2,
-                    ease: 'power2.out',
-                    scrollTrigger: {
-                        trigger: '.skills-section',
-                        start: 'top 80%'
+                // First ensure skill categories are visible
+                gsap.set('.skill-category', { clearProps: 'all' });
+
+                gsap.fromTo('.skill-category',
+                    { x: -50, opacity: 0 },
+                    {
+                        duration: 0.8,
+                        x: 0,
+                        opacity: 1,
+                        stagger: 0.2,
+                        ease: 'power2.out',
+                        clearProps: 'transform',
+                        scrollTrigger: {
+                            trigger: '.skills-section',
+                            start: 'top 80%'
+                        }
                     }
-                });
+                );
             }
 
             // Timeline animation - skip since timeline items are created dynamically after this
@@ -790,17 +807,24 @@ class AdvancedPortfolio {
             // Contact section animation - only if elements exist
             const contactElements = document.querySelectorAll('.contact-item, .contact-form-container');
             if (contactElements.length > 0) {
-                gsap.from('.contact-item, .contact-form-container', {
-                    duration: 0.8,
-                    y: 50,
-                    opacity: 0,
-                    stagger: 0.1,
-                    ease: 'power2.out',
-                    scrollTrigger: {
-                        trigger: '.contact-section',
-                        start: 'top 80%'
+                // First ensure contact elements are visible
+                gsap.set('.contact-item, .contact-form-container', { clearProps: 'all' });
+
+                gsap.fromTo('.contact-item, .contact-form-container',
+                    { y: 50, opacity: 0 },
+                    {
+                        duration: 0.8,
+                        y: 0,
+                        opacity: 1,
+                        stagger: 0.1,
+                        ease: 'power2.out',
+                        clearProps: 'transform',
+                        scrollTrigger: {
+                            trigger: '.contact-section',
+                            start: 'top 80%'
+                        }
                     }
-                });
+                );
             }
         } catch (error) {
             console.error('Error setting up GSAP animations:', error);
@@ -1163,17 +1187,27 @@ class AdvancedPortfolio {
         if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
             const timelineItemElements = document.querySelectorAll('.timeline-item');
             if (timelineItemElements.length > 0) {
-                gsap.from('.timeline-item', {
-                    duration: 0.8,
-                    x: (index) => index % 2 === 0 ? -100 : 100,
-                    opacity: 0,
-                    stagger: 0.2,
-                    ease: 'power2.out',
-                    scrollTrigger: {
-                        trigger: '.timeline-section',
-                        start: 'top 80%'
+                // Ensure timeline items are visible
+                gsap.set('.timeline-item', { clearProps: 'all' });
+
+                gsap.fromTo('.timeline-item',
+                    (index) => ({
+                        x: index % 2 === 0 ? -100 : 100,
+                        opacity: 0
+                    }),
+                    {
+                        duration: 0.8,
+                        x: 0,
+                        opacity: 1,
+                        stagger: 0.2,
+                        ease: 'power2.out',
+                        clearProps: 'transform',
+                        scrollTrigger: {
+                            trigger: '.timeline-section',
+                            start: 'top 80%'
+                        }
                     }
-                });
+                );
             }
         }
     }
