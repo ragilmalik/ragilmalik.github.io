@@ -21,8 +21,32 @@ class AdvancedPortfolio {
         this.isDeleting = false;
         this.isLoaded = false;
         
-        // Real repository data from GitHub API - Updated November 2025
+        // Real repository data from GitHub API - Updated November 18, 2025
         this.repositories = [
+            {
+                name: "shortener",
+                description: "A next-generation URL shortener with stunning glassmorphism UI, supporting single & bulk URL shortening, custom codes, and analytics",
+                language: "CSS",
+                stars: 0,
+                forks: 0,
+                updated: "2025-11-18",
+                url: "https://github.com/ragilmalik/shortener",
+                topics: ["url-shortener", "php", "glassmorphism", "analytics"],
+                created_at: "2025-11-17",
+                size: 78
+            },
+            {
+                name: "games-collection",
+                description: "The ultimate collection of 1000+ hand-curated open-source HTML5/JavaScript games - The most comprehensive collection on GitHub",
+                language: "HTML",
+                stars: 0,
+                forks: 0,
+                updated: "2025-11-18",
+                url: "https://github.com/ragilmalik/games-collection",
+                topics: ["games", "html5", "javascript", "collection"],
+                created_at: "2025-11-17",
+                size: 86
+            },
             {
                 name: "ragilmalik.github.io",
                 description: "GitHub Pages Portfolio website showcasing projects and skills with Three.js animations",
@@ -33,7 +57,7 @@ class AdvancedPortfolio {
                 url: "https://github.com/ragilmalik/ragilmalik.github.io",
                 topics: ["portfolio", "github-pages", "javascript", "threejs"],
                 created_at: "2025-10-04",
-                size: 97
+                size: 149
             },
             {
                 name: "CloudPaste",
@@ -138,7 +162,8 @@ class AdvancedPortfolio {
             'CSS': '#1572B6',
             'JavaScript': '#F7DF1E',
             'HTML': '#E34F26',
-            'TypeScript': '#3178C6'
+            'TypeScript': '#3178C6',
+            'PHP': '#777BB4'
         };
         
         this.init();
@@ -802,10 +827,12 @@ class AdvancedPortfolio {
 
         try {
             console.log('Creating language chart...');
-            // Updated language distribution: 6 Python, 3 JavaScript
+            // Updated language distribution: 6 Python, 3 JavaScript, 1 CSS, 1 HTML (11 total repos)
             const languageData = {
-                'Python': 66.67,
-                'JavaScript': 33.33
+                'Python': 54.55,
+                'JavaScript': 27.27,
+                'CSS': 9.09,
+                'HTML': 9.09
             };
 
             new Chart(ctx, {
@@ -814,8 +841,8 @@ class AdvancedPortfolio {
                     labels: Object.keys(languageData),
                     datasets: [{
                         data: Object.values(languageData),
-                        backgroundColor: ['#3776ab', '#F7DF1E'],
-                        borderColor: ['#00ffff', '#ffffff'],
+                        backgroundColor: ['#3776ab', '#F7DF1E', '#1572B6', '#E34F26'],
+                        borderColor: ['#00ffff', '#ffffff', '#00ffff', '#ffffff'],
                         borderWidth: 2
                     }]
                 },
@@ -853,14 +880,22 @@ class AdvancedPortfolio {
         container.innerHTML = `
             <div style="color: white; text-align: center; padding: 20px;">
                 <h4 style="margin-bottom: 15px;">Language Distribution</h4>
-                <div style="display: flex; justify-content: space-around; align-items: center;">
+                <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 10px;">
                     <div style="text-align: center;">
-                        <div style="width: 60px; height: 60px; background: #3776ab; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white;">67%</div>
+                        <div style="width: 60px; height: 60px; background: #3776ab; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 12px;">55%</div>
                         <div>Python</div>
                     </div>
                     <div style="text-align: center;">
-                        <div style="width: 60px; height: 60px; background: #F7DF1E; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: black;">33%</div>
+                        <div style="width: 60px; height: 60px; background: #F7DF1E; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: black; font-size: 12px;">27%</div>
                         <div>JavaScript</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 60px; background: #1572B6; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 12px;">9%</div>
+                        <div>CSS</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 60px; background: #E34F26; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 12px;">9%</div>
+                        <div>HTML</div>
                     </div>
                 </div>
             </div>
@@ -889,7 +924,7 @@ class AdvancedPortfolio {
                 { x: '2025-08', y: 4 },   // +3 (Media-Organizer Aug 17, GUI-Mover Aug 17, Clipboard-Manager Aug 31) = 4 total
                 { x: '2025-09', y: 5 },   // +1 (Duplicate-File-Finder Sep 4) = 5 total
                 { x: '2025-10', y: 8 },   // +3 (ragilmalik.github.io Oct 4, Email-Validator Oct 12, microfeed Oct 16) = 8 total
-                { x: '2025-11', y: 9 }    // +1 (CloudPaste Nov 8) = 9 total
+                { x: '2025-11', y: 11 }   // +3 (CloudPaste Nov 8, games-collection Nov 17, shortener Nov 17) = 11 total
             ];
 
             new Chart(ctx, {
@@ -955,24 +990,24 @@ class AdvancedPortfolio {
                 <h4 style="margin-bottom: 15px;">Repository Timeline</h4>
                 <div style="display: flex; justify-content: space-between; align-items: end; height: 120px; padding: 0 10px;">
                     <div style="text-align: center; flex: 1;">
-                        <div style="width: 20px; height: 13px; background: #00ffff; margin: 0 auto 5px;"></div>
+                        <div style="width: 20px; height: 11px; background: #00ffff; margin: 0 auto 5px;"></div>
                         <small>Oct'22</small><br><small>1</small>
                     </div>
                     <div style="text-align: center; flex: 1;">
-                        <div style="width: 20px; height: 53px; background: #00ffff; margin: 0 auto 5px;"></div>
+                        <div style="width: 20px; height: 44px; background: #00ffff; margin: 0 auto 5px;"></div>
                         <small>Aug'25</small><br><small>4</small>
                     </div>
                     <div style="text-align: center; flex: 1;">
-                        <div style="width: 20px; height: 67px; background: #00ffff; margin: 0 auto 5px;"></div>
+                        <div style="width: 20px; height: 55px; background: #00ffff; margin: 0 auto 5px;"></div>
                         <small>Sep'25</small><br><small>5</small>
                     </div>
                     <div style="text-align: center; flex: 1;">
-                        <div style="width: 20px; height: 107px; background: #00ffff; margin: 0 auto 5px;"></div>
+                        <div style="width: 20px; height: 87px; background: #00ffff; margin: 0 auto 5px;"></div>
                         <small>Oct'25</small><br><small>8</small>
                     </div>
                     <div style="text-align: center; flex: 1;">
                         <div style="width: 20px; height: 120px; background: #00ffff; margin: 0 auto 5px;"></div>
-                        <small>Nov'25</small><br><small>9</small>
+                        <small>Nov'25</small><br><small>11</small>
                     </div>
                 </div>
             </div>
@@ -1096,8 +1131,8 @@ class AdvancedPortfolio {
             },
             {
                 date: 'November 2025',
-                title: 'Cloud Infrastructure',
-                description: 'Built CloudPaste - a Cloudflare-based file sharing platform with Markdown rendering and S3 storage integration.'
+                title: 'Cloud Infrastructure & Web Services',
+                description: 'Built CloudPaste - a Cloudflare-based file sharing platform with Markdown rendering and S3 storage. Created a next-gen URL shortener with glassmorphism UI and analytics. Curated a collection of 1000+ open-source HTML5/JavaScript games.'
             }
         ];
         
