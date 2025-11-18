@@ -255,19 +255,26 @@ class AdvancedPortfolio {
     startIntroAnimations() {
         // Check if GSAP is available
         if (typeof gsap !== 'undefined') {
+            // First, ensure stat cards are visible by clearing any stuck inline styles
+            gsap.set('.stat-card', { clearProps: 'all' });
+
             gsap.timeline()
                 .from('.hero-greeting', { duration: 1, y: 50, opacity: 0, ease: 'power3.out' })
                 .from('.hero-title .title-main', { duration: 1.2, y: 100, opacity: 0, ease: 'power3.out' }, '-=0.5')
                 .from('.hero-description', { duration: 1, y: 30, opacity: 0, ease: 'power2.out' }, '-=0.3')
                 .from('.hero-actions .cta-button', { duration: 0.8, y: 30, opacity: 0, stagger: 0.1, ease: 'power2.out' }, '-=0.5')
-                .from('.stat-card', { duration: 0.8, y: 30, opacity: 0, stagger: 0.1, ease: 'power2.out' }, '-=0.5');
+                .fromTo('.stat-card',
+                    { y: 30, opacity: 0 },
+                    { duration: 0.8, y: 0, opacity: 1, stagger: 0.1, ease: 'power2.out', clearProps: 'transform' },
+                    '-=0.5'
+                );
         } else {
             // Fallback CSS animations
             document.querySelectorAll('.hero-greeting, .hero-title, .hero-description, .cta-button, .stat-card').forEach((el, index) => {
                 el.style.animation = `fadeInUp 1s ease ${index * 0.1}s forwards`;
             });
         }
-        
+
         this.startTypingAnimation();
         this.animateCounters();
     }
