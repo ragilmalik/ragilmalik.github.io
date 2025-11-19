@@ -64,7 +64,9 @@ class AdvancedPortfolio {
             const response = await fetch('repos.json?t=' + Date.now());
 
             if (!response.ok) {
-                throw new Error(`Failed to load repos.json: ${response.statusText}`);
+                console.warn(`repos.json not found or error: ${response.statusText}`);
+                console.warn('Using fallback: empty repository list. Run the GitHub Actions workflow to populate data.');
+                return;
             }
 
             this.repoData = await response.json();
@@ -76,26 +78,34 @@ class AdvancedPortfolio {
 
             console.log(`✅ Loaded ${this.repositories.length} repositories`);
             console.log(`📊 Stats: ${this.stats.totalRepos} repos, ${this.stats.followers} followers, ${this.stats.yearsActive} years active`);
+            console.log(`📈 Language stats:`, this.languageStats);
+            console.log(`🏷️ Skills:`, this.skills);
 
             // Update stats in the DOM
             this.updateStatsDisplay();
         } catch (error) {
-            console.error('Error loading repository data:', error);
-            // Fallback to empty arrays
-            this.repositories = [];
-            this.languageStats = [];
-            this.timeline = [];
-            this.skills = [];
+            console.error('❌ Error loading repository data:', error);
+            console.error('This is expected if repos.json does not exist yet.');
+            console.error('Solution: Run the GitHub Actions workflow to generate repos.json');
+            // Don't modify arrays - keep them empty and let the site still load
         }
     }
 
     updateStatsDisplay() {
-        // Update stats counters
-        const statCards = document.querySelectorAll('.stat-card h3');
-        if (statCards.length >= 3) {
-            statCards[0].textContent = this.stats.totalRepos;
-            statCards[1].textContent = this.stats.followers;
-            statCards[2].textContent = this.stats.yearsActive;
+        // Update stats counters with dynamic data
+        const statNumbers = document.querySelectorAll('.stat-number');
+        if (statNumbers.length >= 3) {
+            // Update data-count attributes for animation
+            statNumbers[0].dataset.count = this.stats.totalRepos || 0;
+            statNumbers[1].dataset.count = this.stats.yearsActive || 0;
+
+            // Calculate Python percentage from language stats
+            const pythonStat = this.languageStats.find(stat => stat.language === 'Python');
+            const pythonPercentage = pythonStat ? Math.round(pythonStat.percentage) : 0;
+            statNumbers[2].dataset.count = pythonPercentage;
+
+            // Trigger animation after updating data
+            this.animateCounters();
         }
     }
 
@@ -986,30 +996,57 @@ class AdvancedPortfolio {
 
     renderProjects() {
         const projectsGrid = document.getElementById('projects-grid');
-        if (!projectsGrid) return;
-        
+        if (!projectsGrid) {
+            console.error('❌ Projects grid element not found');
+            return;
+        }
+
+        console.log(`🎨 Rendering ${this.repositories.length} repository cards...`);
         projectsGrid.innerHTML = '';
-        
+
+        if (this.repositories.length === 0) {
+            projectsGrid.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #fff;">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 48px; margin-bottom: 20px; color: #00ffff;"></i>
+                    <h3>No Repositories Found</h3>
+                    <p>repos.json is empty or not loaded. Please run the GitHub Actions workflow to sync your repositories.</p>
+                </div>
+            `;
+            return;
+        }
+
         this.repositories.forEach((repo, index) => {
-            const projectCard = this.createProjectCard(repo);
-            projectsGrid.appendChild(projectCard);
+            try {
+                const projectCard = this.createProjectCard(repo);
+                projectsGrid.appendChild(projectCard);
+            } catch (error) {
+                console.error(`❌ Error creating card for repo "${repo.name}":`, error);
+            }
         });
+
+        console.log(`✅ Successfully rendered ${this.repositories.length} repository cards`);
     }
 
     createProjectCard(repo) {
         const card = document.createElement('div');
         card.className = 'project-card';
-        card.dataset.language = repo.language.toLowerCase();
-        card.dataset.name = repo.name.toLowerCase();
-        card.dataset.topics = repo.topics.join(' ').toLowerCase();
-        
-        const languageColor = this.languageColors[repo.language] || '#ffffff';
+
+        // Handle null/undefined values safely
+        const language = repo.language || 'Unknown';
+        const topics = repo.topics || [];
+        const description = repo.description || 'No description available';
+
+        card.dataset.language = language.toLowerCase();
+        card.dataset.name = (repo.name || '').toLowerCase();
+        card.dataset.topics = topics.join(' ').toLowerCase();
+
+        const languageColor = this.languageColors[language] || '#999999';
         const updatedDate = new Date(repo.updated).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'short',
             day: 'numeric'
         });
-        
+
         card.innerHTML = `
             <div class="project-header">
                 <h3 class="project-title">${repo.name}</h3>
@@ -1022,32 +1059,32 @@ class AdvancedPortfolio {
                     </a>
                 </div>
             </div>
-            
-            <p class="project-description">${repo.description}</p>
-            
+
+            <p class="project-description">${description}</p>
+
             <div class="project-topics">
-                ${repo.topics.map(topic => `<span class="topic-tag">${topic}</span>`).join('')}
+                ${topics.map(topic => `<span class="topic-tag">${topic}</span>`).join('')}
             </div>
-            
+
             <div class="project-meta">
                 <div class="project-stats">
                     <div class="stat-item">
                         <span class="language-dot" style="background-color: ${languageColor}"></span>
-                        ${repo.language}
+                        ${language}
                     </div>
                     <div class="stat-item">
                         <i class="fas fa-star"></i>
-                        ${repo.stars}
+                        ${repo.stars || 0}
                     </div>
                     <div class="stat-item">
                         <i class="fas fa-code-branch"></i>
-                        ${repo.forks}
+                        ${repo.forks || 0}
                     </div>
                 </div>
                 <div class="updated-date">${updatedDate}</div>
             </div>
         `;
-        
+
         return card;
     }
 
