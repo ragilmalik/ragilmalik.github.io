@@ -107,6 +107,21 @@ class AdvancedPortfolio {
             // Trigger animation after updating data
             this.animateCounters();
         }
+
+        // Update new stat cards: Total Stars and Total Languages
+        // Calculate total stars from all repositories
+        const totalStars = this.repositories.reduce((sum, repo) => sum + (repo.stars || 0), 0);
+        const totalStarsElement = document.getElementById('total-stars');
+        if (totalStarsElement) {
+            totalStarsElement.textContent = totalStars;
+        }
+
+        // Update total languages count from languageStats
+        const totalLanguages = this.languageStats.length || 0;
+        const totalLanguagesElement = document.getElementById('total-languages');
+        if (totalLanguagesElement) {
+            totalLanguagesElement.textContent = totalLanguages;
+        }
     }
 
     async setupLoading() {
@@ -1095,33 +1110,33 @@ class AdvancedPortfolio {
         const timelineData = [
             {
                 date: 'March 2018',
-                title: 'Started GitHub Journey',
-                description: 'Joined GitHub and began exploring the world of programming with Python.'
+                title: 'The Beginning',
+                description: 'Joined GitHub and started exploring the vast world of programming. First steps into Python development and understanding version control systems.'
             },
             {
                 date: 'October 2022',
-                title: 'First Security Project',
-                description: 'Created RPG (Random Password Generator) - focusing on security and encryption.'
+                title: 'Security & Encryption Focus',
+                description: 'Launched RPG (Random Password Generator) - my first security-focused Python project. Developed strong foundations in cryptographic principles and secure password generation algorithms.'
             },
             {
                 date: 'August 2025',
-                title: 'GUI Development Mastery',
-                description: 'Developed multiple Python GUI applications including Media Organizer, File Mover, and Clipboard Manager with PySide6.'
+                title: 'GUI Development Renaissance',
+                description: 'Breakthrough into GUI development with PySide6. Created Python-GUI-Media-Organizer and Python-GUI-Mover—powerful desktop applications for file management. Mastered event-driven programming and modern UI/UX design patterns.'
             },
             {
                 date: 'September 2025',
-                title: 'Advanced Automation',
-                description: 'Built sophisticated tools like Duplicate File Finder with SHA-256 hashing and CLI Email Validator.'
+                title: 'Advanced File Operations',
+                description: 'Built Python-GUI-Clipboard-Manager with OCR capabilities and Quick Paste features. Developed Python-GUI-Duplicate-File-Finder using SHA-256 hashing for enterprise-grade duplicate detection. Enhanced skills in multithreading and database integration with SQLite.'
             },
             {
                 date: 'October 2025',
-                title: 'Modern Portfolio & CMS',
-                description: 'Launched advanced portfolio website with Three.js animations, and deployed microfeed CMS on Cloudflare.'
+                title: 'Web & Cloud Expansion',
+                description: 'Launched this advanced portfolio website with Three.js 3D animations and Chart.js analytics. Deployed microfeed CMS on Cloudflare Workers. Created Python-CLI-Email-Validator for robust email verification. Expanded into full-stack web development with modern frameworks.'
             },
             {
                 date: 'November 2025',
-                title: 'Cloud Infrastructure & Web Services',
-                description: 'Built CloudPaste - a Cloudflare-based file sharing platform with Markdown rendering and S3 storage. Created a next-gen URL shortener with glassmorphism UI and analytics. Curated a collection of 1000+ open-source HTML5/JavaScript games.'
+                title: 'Multi-Platform Innovation',
+                description: 'Deployed CloudPaste—a Cloudflare-based file sharing platform with Markdown rendering, WebDAV support, and S3 storage integration. Built modern URL shortener with glassmorphism UI and analytics. Developed Telegram TikTok Downloader bot. Ventured into IoT with ESP01 DDNS client in C. Curated games-collection featuring 1000+ HTML5 games.'
             }
         ];
         

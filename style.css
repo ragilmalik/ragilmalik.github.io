@@ -1401,6 +1401,39 @@ body::after {
   font-weight: 500;
 }
 
+/* Single stat styling for new cards */
+.github-stat.single-stat {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+  padding: var(--space-lg) 0;
+}
+
+.stat-icon-large {
+  font-size: 48px;
+  color: var(--accent-cyan);
+  opacity: 0.8;
+  transition: all var(--duration-fast) ease;
+}
+
+.stat-panel:hover .stat-icon-large {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.stat-value.large {
+  font-size: 56px;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
 /* Activity Grid */
 .activity-grid {
   display: grid;
