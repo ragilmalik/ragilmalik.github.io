@@ -39,7 +39,12 @@ class AdvancedPortfolio {
             'JavaScript': '#F7DF1E',
             'HTML': '#E34F26',
             'TypeScript': '#3178C6',
-            'PHP': '#777BB4'
+            'PHP': '#777BB4',
+            'C': '#A8B9CC',
+            'C++': '#f34b7d',
+            'Java': '#b07219',
+            'Go': '#00ADD8',
+            'Rust': '#dea584'
         };
         
         this.init();
@@ -106,6 +111,22 @@ class AdvancedPortfolio {
 
             // Trigger animation after updating data
             this.animateCounters();
+        }
+
+        // Update GitHub Overview card in ADVANCED ANALYTICS section
+        const totalReposElement = document.getElementById('total-repos');
+        if (totalReposElement) {
+            totalReposElement.textContent = this.stats.totalRepos || 0;
+        }
+
+        const totalFollowersElement = document.getElementById('total-followers');
+        if (totalFollowersElement) {
+            totalFollowersElement.textContent = this.stats.followers || 0;
+        }
+
+        const yearsActiveElement = document.getElementById('years-active');
+        if (yearsActiveElement) {
+            yearsActiveElement.textContent = this.stats.yearsActive || 0;
         }
 
         // Update new stat cards: Total Stars and Total Languages
@@ -994,17 +1015,45 @@ class AdvancedPortfolio {
     setupActivityGrid() {
         const activityGrid = document.getElementById('activity-grid');
         if (!activityGrid) return;
-        
-        // Generate activity data for the last 3 months
-        for (let i = 0; i < 84; i++) { // 7 days × 12 weeks
+
+        // Generate real activity data based on repository updates
+        const today = new Date();
+        const activityMap = new Map();
+
+        // Count repository updates per day for the last 84 days
+        this.repositories.forEach(repo => {
+            if (repo.updated) {
+                const updateDate = new Date(repo.updated);
+                const dateKey = updateDate.toDateString();
+                activityMap.set(dateKey, (activityMap.get(dateKey) || 0) + 1);
+            }
+        });
+
+        // Generate grid for last 84 days (7 days × 12 weeks)
+        for (let i = 83; i >= 0; i--) {
+            const date = new Date(today);
+            date.setDate(date.getDate() - i);
+            const dateKey = date.toDateString();
+
             const day = document.createElement('div');
             day.className = 'activity-day';
-            
-            // Random activity level
-            const activity = Math.random();
-            if (activity > 0.7) day.classList.add('active');
-            
-            day.title = `Day ${i + 1}`;
+
+            const activityCount = activityMap.get(dateKey) || 0;
+
+            // Apply activity levels based on real update counts
+            if (activityCount > 0) {
+                day.classList.add('active');
+                if (activityCount >= 3) {
+                    day.classList.add('very-active');
+                }
+            }
+
+            // Format tooltip with actual activity info
+            const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            day.title = activityCount > 0
+                ? `${dateStr}: ${activityCount} update${activityCount > 1 ? 's' : ''}`
+                : `${dateStr}: No activity`;
+
             activityGrid.appendChild(day);
         }
     }

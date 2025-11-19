@@ -1454,6 +1454,11 @@ body::after {
   background: var(--accent-green);
 }
 
+.activity-day.very-active {
+  background: var(--accent-cyan);
+  box-shadow: 0 0 8px var(--accent-cyan);
+}
+
 .activity-day:hover {
   transform: scale(1.2);
 }
