@@ -1434,6 +1434,36 @@ body::after {
   line-height: 1;
 }
 
+/* Activity Panel Styles */
+.activity-period {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: var(--font-xs);
+  font-weight: 500;
+}
+
+.activity-stats-summary {
+  display: flex;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-lg);
+  justify-content: space-around;
+}
+
+.activity-stat-item {
+  text-align: center;
+}
+
+.activity-stat-value {
+  font-size: var(--font-2xl);
+  font-weight: 800;
+  color: var(--accent-cyan);
+}
+
+.activity-stat-label {
+  font-size: var(--font-xs);
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: var(--space-xs);
+}
+
 /* Activity Grid */
 .activity-grid {
   display: grid;
@@ -1461,6 +1491,55 @@ body::after {
 
 .activity-day:hover {
   transform: scale(1.2);
+}
+
+/* Languages Container */
+.languages-container {
+  padding: var(--space-base) 0;
+}
+
+.languages-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+.language-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-base);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  transition: all var(--duration-fast) ease;
+}
+
+.language-badge:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--lang-color, var(--accent-cyan));
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.language-badge .language-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.language-badge .language-name {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.no-data {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  padding: var(--space-xl);
+  font-style: italic;
 }
 
 /* Projects Section */

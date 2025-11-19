@@ -227,10 +227,21 @@
                         </div>
                     </div>
 
-                    <!-- Activity Heatmap -->
+                    <!-- Repository Activity -->
                     <div class="stat-panel activity-panel">
                         <div class="panel-header">
-                            <h3>Repository Activity</h3>
+                            <h3>Recent Activity</h3>
+                            <div class="activity-period">Last 30 Days</div>
+                        </div>
+                        <div class="activity-stats-summary">
+                            <div class="activity-stat-item">
+                                <div class="activity-stat-value" id="activity-30-days">0</div>
+                                <div class="activity-stat-label">Updates</div>
+                            </div>
+                            <div class="activity-stat-item">
+                                <div class="activity-stat-value" id="activity-most-active">0</div>
+                                <div class="activity-stat-label">Peak Day</div>
+                            </div>
                         </div>
                         <div class="activity-grid" id="activity-grid">
                             <!-- Generated dynamically -->
@@ -253,18 +264,14 @@
                         </div>
                     </div>
 
-                    <!-- Active Topics -->
+                    <!-- Technologies Used -->
                     <div class="stat-panel topics-panel">
                         <div class="panel-header">
                             <h3>Technologies</h3>
                         </div>
-                        <div class="github-stats">
-                            <div class="github-stat single-stat">
-                                <div class="stat-icon-large">
-                                    <i class="fas fa-layer-group"></i>
-                                </div>
-                                <div class="stat-value large" id="total-languages">0</div>
-                                <div class="stat-name">Languages Used</div>
+                        <div class="languages-container" id="languages-container">
+                            <div class="languages-grid">
+                                <!-- Languages will be generated dynamically -->
                             </div>
                         </div>
                     </div>
@@ -316,51 +323,7 @@
                     <div class="skill-category">
                         <h3>Programming Languages</h3>
                         <div class="skills-list">
-                            <div class="skill-item" data-level="90">
-                                <div class="skill-info">
-                                    <span class="skill-name">Python</span>
-                                    <span class="skill-percentage">90%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-fill" style="--skill-color: #3776ab"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item" data-level="75">
-                                <div class="skill-info">
-                                    <span class="skill-name">CSS</span>
-                                    <span class="skill-percentage">75%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-fill" style="--skill-color: #1572B6"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item" data-level="70">
-                                <div class="skill-info">
-                                    <span class="skill-name">HTML</span>
-                                    <span class="skill-percentage">70%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-fill" style="--skill-color: #E34F26"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item" data-level="60">
-                                <div class="skill-info">
-                                    <span class="skill-name">JavaScript</span>
-                                    <span class="skill-percentage">60%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-fill" style="--skill-color: #F7DF1E"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item" data-level="65">
-                                <div class="skill-info">
-                                    <span class="skill-name">PHP</span>
-                                    <span class="skill-percentage">65%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-fill" style="--skill-color: #777BB4"></div>
-                                </div>
-                            </div>
+                            <!-- Skills generated dynamically from repos.json languageStats -->
                         </div>
                     </div>
 
