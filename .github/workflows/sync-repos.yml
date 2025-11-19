@@ -1,0 +1,153 @@
+name: Sync GitHub Repositories
+
+on:
+  # Run daily at 00:00 UTC
+  schedule:
+    - cron: '0 0 * * *'
+
+  # Allow manual trigger
+  workflow_dispatch:
+
+  # Run when pushing to main branch
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PERSONAL_TOKEN }}
+
+      - name: Fetch GitHub repositories
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_TOKEN }}
+        run: |
+          # Fetch user info
+          USER_DATA=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/user")
+
+          USERNAME=$(echo "$USER_DATA" | jq -r '.login')
+          FOLLOWERS=$(echo "$USER_DATA" | jq -r '.followers')
+          CREATED_AT=$(echo "$USER_DATA" | jq -r '.created_at')
+
+          # Calculate years active
+          CURRENT_YEAR=$(date +%Y)
+          CREATED_YEAR=$(echo "$CREATED_AT" | cut -d'-' -f1)
+          YEARS_ACTIVE=$((CURRENT_YEAR - CREATED_YEAR))
+
+          # Fetch all public repositories
+          REPOS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/user/repos?type=public&per_page=100&sort=updated")
+
+          # Process repositories and extract data
+          echo "$REPOS" | jq '[.[] | {
+            name: .name,
+            description: .description,
+            language: .language,
+            stars: .stargazers_count,
+            forks: .forks_count,
+            updated: (.updated_at | split("T")[0]),
+            url: .html_url,
+            topics: .topics,
+            created_at: (.created_at | split("T")[0]),
+            size: .size,
+            homepage: .homepage,
+            is_fork: .fork,
+            default_branch: .default_branch,
+            open_issues: .open_issues_count,
+            watchers: .watchers_count,
+            license: (.license.name // null)
+          }] | sort_by(.updated) | reverse' > repos_raw.json
+
+          # Calculate language statistics
+          LANG_STATS=$(echo "$REPOS" | jq '[.[] | select(.language != null) | .language] |
+            group_by(.) |
+            map({language: .[0], count: length}) |
+            sort_by(.count) |
+            reverse')
+
+          TOTAL_LANGS=$(echo "$LANG_STATS" | jq 'map(.count) | add // 0')
+
+          LANG_PERCENTAGES=$(echo "$LANG_STATS" | jq --argjson total "$TOTAL_LANGS" '
+            map({
+              language: .language,
+              percentage: ((.count / $total) * 100 | floor * 100 / 100)
+            })')
+
+          # Calculate timeline data (cumulative repos by month)
+          TIMELINE=$(echo "$REPOS" | jq '[.[] | .created_at] |
+            sort |
+            group_by(.[0:7]) |
+            map({date: .[0][0:7], count: length}) |
+            reduce .[] as $item ([];
+              . + [{
+                x: $item.date,
+                y: ((if length > 0 then .[-1].y else 0 end) + $item.count)
+              }])')
+
+          # Extract all unique topics/skills
+          SKILLS=$(echo "$REPOS" | jq '[.[].topics // []] |
+            flatten |
+            unique |
+            sort')
+
+          # Extract all languages used
+          LANGUAGES=$(echo "$REPOS" | jq '[.[].language // empty] |
+            unique |
+            sort')
+
+          # Count total public repos
+          TOTAL_REPOS=$(echo "$REPOS" | jq 'length')
+
+          # Create final JSON with all data
+          jq -n \
+            --argjson repos "$(cat repos_raw.json)" \
+            --argjson langStats "$LANG_PERCENTAGES" \
+            --argjson timeline "$TIMELINE" \
+            --argjson skills "$SKILLS" \
+            --argjson languages "$LANGUAGES" \
+            --argjson totalRepos "$TOTAL_REPOS" \
+            --argjson followers "$FOLLOWERS" \
+            --argjson yearsActive "$YEARS_ACTIVE" \
+            --arg username "$USERNAME" \
+            --arg lastUpdated "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            '{
+              username: $username,
+              lastUpdated: $lastUpdated,
+              stats: {
+                totalRepos: $totalRepos,
+                followers: $followers,
+                yearsActive: $yearsActive
+              },
+              repositories: $repos,
+              languageStats: $langStats,
+              timeline: $timeline,
+              skills: $skills,
+              languages: $languages
+            }' > repos.json
+
+          # Clean up temporary file
+          rm -f repos_raw.json
+
+          echo "✅ Successfully fetched $TOTAL_REPOS repositories"
+          echo "📊 Languages: $(echo "$LANGUAGES" | jq -r 'join(", ")')"
+          echo "🏷️  Skills: $(echo "$SKILLS" | jq -r 'length') unique topics found"
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet repos.json; then
+            echo "No changes to commit"
+          else
+            git add repos.json
+            git commit -m "🤖 Auto-sync: Update repository data"
+            git push
+            echo "✅ Changes committed and pushed"
+          fi
