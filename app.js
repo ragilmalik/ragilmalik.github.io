@@ -223,10 +223,13 @@ class AdvancedPortfolio {
         
         console.log('Rendering projects...');
         this.renderProjects();
-        
+
+        console.log('Setting up skills...');
+        this.setupSkills();
+
         console.log('Setting up timeline...');
         this.setupTimeline();
-        
+
         console.log('Setting up performance monitor...');
         this.setupPerformanceMonitor();
         
@@ -1297,6 +1300,51 @@ class AdvancedPortfolio {
                 );
             }
         }
+    }
+
+    setupSkills() {
+        const skillsList = document.querySelector('.skills-list');
+        if (!skillsList) return;
+
+        // Clear existing skills
+        skillsList.innerHTML = '';
+
+        if (this.languageStats.length === 0) {
+            console.warn('No language stats available for skills');
+            return;
+        }
+
+        // Generate skill items from languageStats
+        this.languageStats.forEach(stat => {
+            const skillItem = document.createElement('div');
+            skillItem.className = 'skill-item';
+            skillItem.dataset.level = Math.round(stat.percentage);
+
+            const color = this.languageColors[stat.language] || '#999999';
+
+            skillItem.innerHTML = `
+                <div class="skill-info">
+                    <span class="skill-name">${stat.language}</span>
+                    <span class="skill-percentage">${Math.round(stat.percentage)}%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-fill" style="--skill-color: ${color}"></div>
+                </div>
+            `;
+
+            skillsList.appendChild(skillItem);
+        });
+
+        // Animate skill bars after a delay
+        setTimeout(() => {
+            document.querySelectorAll('.skill-item').forEach(item => {
+                const level = item.dataset.level;
+                const skillFill = item.querySelector('.skill-fill');
+                if (skillFill && level) {
+                    skillFill.style.width = `${level}%`;
+                }
+            });
+        }, 500);
     }
 
     startTypingAnimation() {
