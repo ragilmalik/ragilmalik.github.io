@@ -21,141 +21,17 @@ class AdvancedPortfolio {
         this.isDeleting = false;
         this.isLoaded = false;
         
-        // Real repository data from GitHub API - Updated November 18, 2025
-        this.repositories = [
-            {
-                name: "shortener",
-                description: "A next-generation URL shortener with stunning glassmorphism UI, supporting single & bulk URL shortening, custom codes, and analytics",
-                language: "CSS",
-                stars: 0,
-                forks: 0,
-                updated: "2025-11-18",
-                url: "https://github.com/ragilmalik/shortener",
-                topics: ["url-shortener", "php", "glassmorphism", "analytics"],
-                created_at: "2025-11-17",
-                size: 78
-            },
-            {
-                name: "games-collection",
-                description: "The ultimate collection of 1000+ hand-curated open-source HTML5/JavaScript games - The most comprehensive collection on GitHub",
-                language: "HTML",
-                stars: 0,
-                forks: 0,
-                updated: "2025-11-18",
-                url: "https://github.com/ragilmalik/games-collection",
-                topics: ["games", "html5", "javascript", "collection"],
-                created_at: "2025-11-17",
-                size: 86
-            },
-            {
-                name: "ragilmalik.github.io",
-                description: "GitHub Pages Portfolio website showcasing projects and skills with Three.js animations",
-                language: "JavaScript",
-                stars: 0,
-                forks: 0,
-                updated: "2025-11-17",
-                url: "https://github.com/ragilmalik/ragilmalik.github.io",
-                topics: ["portfolio", "github-pages", "javascript", "threejs"],
-                created_at: "2025-10-04",
-                size: 149
-            },
-            {
-                name: "CloudPaste",
-                description: "A Cloudflare-based online text/large file sharing platform that supports multiple syntax Markdown rendering, self-destructing messages, S3 aggregated storage",
-                language: "JavaScript",
-                stars: 0,
-                forks: 0,
-                updated: "2025-11-08",
-                url: "https://github.com/ragilmalik/CloudPaste",
-                topics: ["cloudflare", "file-sharing", "markdown", "s3"],
-                created_at: "2025-11-08",
-                size: 60212
-            },
-            {
-                name: "microfeed",
-                description: "A lightweight CMS self-hosted on Cloudflare, for podcasts, blogs, photos, videos, documents, and curated urls",
-                language: "JavaScript",
-                stars: 0,
-                forks: 0,
-                updated: "2025-10-16",
-                url: "https://github.com/ragilmalik/microfeed",
-                topics: ["cloudflare", "cms", "podcast", "blog"],
-                created_at: "2025-10-16",
-                size: 1501
-            },
-            {
-                name: "Python-CLI-Email-Validator",
-                description: "A Python CLI tool for validating email addresses with syntax checking and domain verification",
-                language: "Python",
-                stars: 0,
-                forks: 0,
-                updated: "2025-10-12",
-                url: "https://github.com/ragilmalik/Python-CLI-Email-Validator",
-                topics: ["python", "cli", "email", "validator"],
-                created_at: "2025-10-12",
-                size: 8
-            },
-            {
-                name: "Python-GUI-Duplicate-File-Finder",
-                description: "A fast, no-nonsense Windows GUI for finding duplicate files in a folder (non-recursive by default). It hashes files with SHA-256, moves duplicates to a Duplicates/ folder next to the source",
-                language: "Python",
-                stars: 0,
-                forks: 0,
-                updated: "2025-09-04",
-                url: "https://github.com/ragilmalik/Python-GUI-Duplicate-File-Finder",
-                topics: ["python", "gui", "duplicate-finder", "windows"],
-                created_at: "2025-09-04",
-                size: 5
-            },
-            {
-                name: "Python-GUI-Clipboard-Manager",
-                description: "A fast, lightweight, privacy-friendly clipboard history manager for Windows with a modern UI, drag-to-reorder, Quick Paste Palette, snipping, exports, and optional OCR. Built with PySide6 + SQLite",
-                language: "Python",
-                stars: 0,
-                forks: 0,
-                updated: "2025-09-04",
-                url: "https://github.com/ragilmalik/Python-GUI-Clipboard-Manager",
-                topics: ["python", "clipboard", "gui", "pyside6", "sqlite"],
-                created_at: "2025-08-31",
-                size: 10
-            },
-            {
-                name: "Python-GUI-Mover",
-                description: "A Minimalist python GUI to move file because Windows's one is annoying",
-                language: "Python",
-                stars: 0,
-                forks: 0,
-                updated: "2025-08-20",
-                url: "https://github.com/ragilmalik/Python-GUI-Mover",
-                topics: ["python", "gui", "file-manager", "windows"],
-                created_at: "2025-08-17",
-                size: 33
-            },
-            {
-                name: "Python-GUI-Media-Organizer",
-                description: "Python GUI to organize your photos and videos into its each creation date time folder",
-                language: "Python",
-                stars: 0,
-                forks: 0,
-                updated: "2025-08-17",
-                url: "https://github.com/ragilmalik/Python-GUI-Media-Organizer",
-                topics: ["python", "gui", "media", "organizer"],
-                created_at: "2025-08-17",
-                size: 18
-            },
-            {
-                name: "RPG",
-                description: "Random Password Generator - A secure password generation tool with customizable options",
-                language: "Python",
-                stars: 0,
-                forks: 0,
-                updated: "2022-10-17",
-                url: "https://github.com/ragilmalik/RPG",
-                topics: ["python", "password-generator", "security"],
-                created_at: "2022-10-17",
-                size: 11289
-            }
-        ];
+        // Dynamic repository data - loaded from repos.json (auto-synced via GitHub Actions)
+        this.repositories = [];
+        this.repoData = null;
+        this.stats = {
+            totalRepos: 0,
+            followers: 0,
+            yearsActive: 0
+        };
+        this.languageStats = [];
+        this.timeline = [];
+        this.skills = [];
         
         this.languageColors = {
             'Python': '#3776ab',
@@ -173,11 +49,53 @@ class AdvancedPortfolio {
         try {
             console.log('Initializing portfolio...');
             await this.setupLoading();
+            await this.loadRepositoryData();
             await this.initializeComponents();
             this.hideLoading();
         } catch (error) {
             console.error('Error initializing portfolio:', error);
             this.hideLoading();
+        }
+    }
+
+    async loadRepositoryData() {
+        try {
+            console.log('Loading repository data from repos.json...');
+            const response = await fetch('repos.json?t=' + Date.now());
+
+            if (!response.ok) {
+                throw new Error(`Failed to load repos.json: ${response.statusText}`);
+            }
+
+            this.repoData = await response.json();
+            this.repositories = this.repoData.repositories || [];
+            this.stats = this.repoData.stats || this.stats;
+            this.languageStats = this.repoData.languageStats || [];
+            this.timeline = this.repoData.timeline || [];
+            this.skills = this.repoData.skills || [];
+
+            console.log(`✅ Loaded ${this.repositories.length} repositories`);
+            console.log(`📊 Stats: ${this.stats.totalRepos} repos, ${this.stats.followers} followers, ${this.stats.yearsActive} years active`);
+
+            // Update stats in the DOM
+            this.updateStatsDisplay();
+        } catch (error) {
+            console.error('Error loading repository data:', error);
+            // Fallback to empty arrays
+            this.repositories = [];
+            this.languageStats = [];
+            this.timeline = [];
+            this.skills = [];
+        }
+    }
+
+    updateStatsDisplay() {
+        // Update stats counters
+        const statCards = document.querySelectorAll('.stat-card h3');
+        if (statCards.length >= 3) {
+            statCards[0].textContent = this.stats.totalRepos;
+            statCards[1].textContent = this.stats.followers;
+            statCards[2].textContent = this.stats.yearsActive;
         }
     }
 
@@ -857,23 +775,26 @@ class AdvancedPortfolio {
         }
 
         try {
-            console.log('Creating language chart...');
-            // Updated language distribution: 6 Python, 3 JavaScript, 1 CSS, 1 HTML (11 total repos)
-            const languageData = {
-                'Python': 54.55,
-                'JavaScript': 27.27,
-                'CSS': 9.09,
-                'HTML': 9.09
-            };
+            console.log('Creating language chart with dynamic data...');
+
+            // Use dynamic language stats from repos.json
+            const labels = this.languageStats.map(stat => stat.language);
+            const data = this.languageStats.map(stat => stat.percentage);
+            const colors = labels.map(lang => this.languageColors[lang] || '#999999');
+
+            if (labels.length === 0) {
+                console.warn('No language data available');
+                return;
+            }
 
             new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: Object.keys(languageData),
+                    labels: labels,
                     datasets: [{
-                        data: Object.values(languageData),
-                        backgroundColor: ['#3776ab', '#F7DF1E', '#1572B6', '#E34F26'],
-                        borderColor: ['#00ffff', '#ffffff', '#00ffff', '#ffffff'],
+                        data: data,
+                        backgroundColor: colors,
+                        borderColor: colors.map((_, i) => i % 2 === 0 ? '#00ffff' : '#ffffff'),
                         borderWidth: 2
                     }]
                 },
@@ -898,7 +819,7 @@ class AdvancedPortfolio {
                     }
                 }
             });
-            console.log('Language chart created successfully');
+            console.log('Language chart created successfully with dynamic data');
         } catch (error) {
             console.error('Error creating language chart:', error);
             // Fallback: Create a simple text-based chart
@@ -948,15 +869,15 @@ class AdvancedPortfolio {
         }
 
         try {
-            console.log('Creating timeline chart...');
-            // Updated timeline data based on actual repos - Corrected cumulative totals
-            const timelineData = [
-                { x: '2022-10', y: 1 },   // RPG (1 total)
-                { x: '2025-08', y: 4 },   // +3 (Media-Organizer Aug 17, GUI-Mover Aug 17, Clipboard-Manager Aug 31) = 4 total
-                { x: '2025-09', y: 5 },   // +1 (Duplicate-File-Finder Sep 4) = 5 total
-                { x: '2025-10', y: 8 },   // +3 (ragilmalik.github.io Oct 4, Email-Validator Oct 12, microfeed Oct 16) = 8 total
-                { x: '2025-11', y: 11 }   // +3 (CloudPaste Nov 8, games-collection Nov 17, shortener Nov 17) = 11 total
-            ];
+            console.log('Creating timeline chart with dynamic data...');
+
+            // Use dynamic timeline data from repos.json
+            const timelineData = this.timeline || [];
+
+            if (timelineData.length === 0) {
+                console.warn('No timeline data available');
+                return;
+            }
 
             new Chart(ctx, {
                 type: 'line',
@@ -1006,7 +927,7 @@ class AdvancedPortfolio {
                     }
                 }
             });
-            console.log('Timeline chart created successfully');
+            console.log('Timeline chart created successfully with dynamic data');
         } catch (error) {
             console.error('Error creating timeline chart:', error);
             // Fallback: Create a simple text-based chart
