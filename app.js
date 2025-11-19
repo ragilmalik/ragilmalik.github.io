@@ -137,12 +137,51 @@ class AdvancedPortfolio {
             totalStarsElement.textContent = totalStars;
         }
 
-        // Update total languages count from languageStats
-        const totalLanguages = this.languageStats.length || 0;
-        const totalLanguagesElement = document.getElementById('total-languages');
-        if (totalLanguagesElement) {
-            totalLanguagesElement.textContent = totalLanguages;
+        // Update Technologies card - show ALL languages as badges
+        this.updateLanguagesList();
+    }
+
+    updateLanguagesList() {
+        const languagesContainer = document.getElementById('languages-container');
+        if (!languagesContainer) return;
+
+        const languagesGrid = languagesContainer.querySelector('.languages-grid');
+        if (!languagesGrid) return;
+
+        // Clear existing content
+        languagesGrid.innerHTML = '';
+
+        // Get all unique languages from repos
+        const languagesSet = new Set();
+        this.repositories.forEach(repo => {
+            if (repo.language) {
+                languagesSet.add(repo.language);
+            }
+        });
+
+        // Convert to array and sort
+        const languages = Array.from(languagesSet).sort();
+
+        if (languages.length === 0) {
+            languagesGrid.innerHTML = '<div class="no-data">No languages detected</div>';
+            return;
         }
+
+        // Create language badges
+        languages.forEach(language => {
+            const badge = document.createElement('div');
+            badge.className = 'language-badge';
+
+            const color = this.languageColors[language] || '#999999';
+            badge.style.setProperty('--lang-color', color);
+
+            badge.innerHTML = `
+                <span class="language-dot" style="background-color: ${color}"></span>
+                <span class="language-name">${language}</span>
+            `;
+
+            languagesGrid.appendChild(badge);
+        });
     }
 
     async setupLoading() {
@@ -1028,6 +1067,32 @@ class AdvancedPortfolio {
                 activityMap.set(dateKey, (activityMap.get(dateKey) || 0) + 1);
             }
         });
+
+        // Calculate 30-day activity stats
+        let updates30Days = 0;
+        let maxDayActivity = 0;
+
+        for (let i = 0; i < 30; i++) {
+            const date = new Date(today);
+            date.setDate(date.getDate() - i);
+            const dateKey = date.toDateString();
+            const count = activityMap.get(dateKey) || 0;
+            updates30Days += count;
+            if (count > maxDayActivity) {
+                maxDayActivity = count;
+            }
+        }
+
+        // Update 30-day stats in DOM
+        const activity30Element = document.getElementById('activity-30-days');
+        if (activity30Element) {
+            activity30Element.textContent = updates30Days;
+        }
+
+        const activityMostElement = document.getElementById('activity-most-active');
+        if (activityMostElement) {
+            activityMostElement.textContent = maxDayActivity;
+        }
 
         // Generate grid for last 84 days (7 days × 12 weeks)
         for (let i = 83; i >= 0; i--) {
