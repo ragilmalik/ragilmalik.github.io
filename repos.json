@@ -1,29 +1,29 @@
 {
   "username": "ragilmalik",
-  "lastUpdated": "2025-11-19T04:33:21Z",
+  "lastUpdated": "2025-11-20T01:07:02Z",
   "stats": {
-    "totalRepos": 13,
+    "totalRepos": 17,
     "followers": 5,
     "yearsActive": 7
   },
   "repositories": [
     {
-      "name": "esp01-ddns",
-      "description": null,
-      "language": "C",
+      "name": "starred-repos",
+      "description": "Collection of my starred repositories, updated automatically.",
+      "language": "HTML",
       "stars": 0,
       "forks": 0,
-      "updated": "2025-11-19",
-      "url": "https://github.com/ragilmalik/esp01-ddns",
+      "updated": "2025-11-20",
+      "url": "https://github.com/ragilmalik/starred-repos",
       "topics": [],
       "created_at": "2025-11-19",
-      "size": 66,
-      "homepage": null,
+      "size": 1411,
+      "homepage": "https://github.ragilmalik.com/starred-repos/",
       "is_fork": false,
       "default_branch": "main",
       "open_issues": 0,
       "watchers": 0,
-      "license": "MIT License"
+      "license": null
     },
     {
       "name": "ragilmalik.github.io",
@@ -35,8 +35,8 @@
       "url": "https://github.com/ragilmalik/ragilmalik.github.io",
       "topics": [],
       "created_at": "2025-10-04",
-      "size": 187,
-      "homepage": null,
+      "size": 136,
+      "homepage": "https://github.ragilmalik.com/",
       "is_fork": false,
       "default_branch": "main",
       "open_issues": 1,
@@ -44,17 +44,17 @@
       "license": null
     },
     {
-      "name": "games-collection",
-      "description": null,
-      "language": "HTML",
+      "name": "ESP32-ESP8266",
+      "description": "The most comprehensive, curated collection of ESP32 and ESP8266 projects on GitHub",
+      "language": "Python",
       "stars": 0,
       "forks": 0,
-      "updated": "2025-11-18",
-      "url": "https://github.com/ragilmalik/games-collection",
+      "updated": "2025-11-19",
+      "url": "https://github.com/ragilmalik/ESP32-ESP8266",
       "topics": [],
-      "created_at": "2025-11-17",
-      "size": 86,
-      "homepage": null,
+      "created_at": "2025-11-19",
+      "size": 1242,
+      "homepage": "",
       "is_fork": false,
       "default_branch": "main",
       "open_issues": 0,
@@ -62,12 +62,66 @@
       "license": null
     },
     {
+      "name": "Python-Collection",
+      "description": "The most comprehensive and immersive collection of Python projects on GitHub!",
+      "language": "Python",
+      "stars": 0,
+      "forks": 0,
+      "updated": "2025-11-19",
+      "url": "https://github.com/ragilmalik/Python-Collection",
+      "topics": [],
+      "created_at": "2025-11-19",
+      "size": 9908,
+      "homepage": "",
+      "is_fork": false,
+      "default_branch": "main",
+      "open_issues": 0,
+      "watchers": 0,
+      "license": null
+    },
+    {
+      "name": "venting",
+      "description": "An anonymous platform for anyone to vent",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "updated": "2025-11-19",
+      "url": "https://github.com/ragilmalik/venting",
+      "topics": [],
+      "created_at": "2025-11-18",
+      "size": 169,
+      "homepage": "https://venting.ragilmalik.com",
+      "is_fork": false,
+      "default_branch": "main",
+      "open_issues": 0,
+      "watchers": 0,
+      "license": null
+    },
+    {
+      "name": "esp01-ddns",
+      "description": "A ddns script for ESP01, configured for Cloudflare",
+      "language": "C",
+      "stars": 0,
+      "forks": 0,
+      "updated": "2025-11-19",
+      "url": "https://github.com/ragilmalik/esp01-ddns",
+      "topics": [],
+      "created_at": "2025-11-19",
+      "size": 66,
+      "homepage": "",
+      "is_fork": false,
+      "default_branch": "main",
+      "open_issues": 0,
+      "watchers": 0,
+      "license": "MIT License"
+    },
+    {
       "name": "shortener",
-      "description": null,
+      "description": "Free simple self-hosted url shortener with no ads.",
       "language": "CSS",
       "stars": 0,
       "forks": 0,
-      "updated": "2025-11-18",
+      "updated": "2025-11-19",
       "url": "https://github.com/ragilmalik/shortener",
       "topics": [],
       "created_at": "2025-11-17",
@@ -80,17 +134,53 @@
       "license": null
     },
     {
-      "name": "telegram-tiktok-downloader",
-      "description": null,
+      "name": "games-collection",
+      "description": "The ultimate collection of one-page games pulled from various Github repositories.",
       "language": "HTML",
       "stars": 0,
       "forks": 0,
-      "updated": "2025-11-18",
+      "updated": "2025-11-19",
+      "url": "https://github.com/ragilmalik/games-collection",
+      "topics": [],
+      "created_at": "2025-11-17",
+      "size": 86,
+      "homepage": "",
+      "is_fork": false,
+      "default_branch": "main",
+      "open_issues": 0,
+      "watchers": 0,
+      "license": null
+    },
+    {
+      "name": "Python-CLI-Email-Validator",
+      "description": "Simple validator script for email and domain using python",
+      "language": null,
+      "stars": 0,
+      "forks": 0,
+      "updated": "2025-11-19",
+      "url": "https://github.com/ragilmalik/Python-CLI-Email-Validator",
+      "topics": [],
+      "created_at": "2025-10-12",
+      "size": 8,
+      "homepage": "",
+      "is_fork": false,
+      "default_branch": "main",
+      "open_issues": 0,
+      "watchers": 0,
+      "license": null
+    },
+    {
+      "name": "telegram-tiktok-downloader",
+      "description": "Tiktok and social media direct downloader through Telegram",
+      "language": "HTML",
+      "stars": 0,
+      "forks": 0,
+      "updated": "2025-11-19",
       "url": "https://github.com/ragilmalik/telegram-tiktok-downloader",
       "topics": [],
       "created_at": "2025-11-18",
-      "size": 82,
-      "homepage": null,
+      "size": 197,
+      "homepage": "",
       "is_fork": false,
       "default_branch": "main",
       "open_issues": 0,
@@ -132,24 +222,6 @@
       "open_issues": 0,
       "watchers": 0,
       "license": "GNU Affero General Public License v3.0"
-    },
-    {
-      "name": "Python-CLI-Email-Validator",
-      "description": null,
-      "language": null,
-      "stars": 0,
-      "forks": 0,
-      "updated": "2025-10-12",
-      "url": "https://github.com/ragilmalik/Python-CLI-Email-Validator",
-      "topics": [],
-      "created_at": "2025-10-12",
-      "size": 8,
-      "homepage": null,
-      "is_fork": false,
-      "default_branch": "main",
-      "open_issues": 0,
-      "watchers": 0,
-      "license": null
     },
     {
       "name": "Python-GUI-Clipboard-Manager",
@@ -245,7 +317,7 @@
   "languageStats": [
     {
       "language": "Python",
-      "percentage": 37
+      "percentage": 41
     },
     {
       "language": "HTML",
@@ -253,15 +325,15 @@
     },
     {
       "language": "JavaScript",
-      "percentage": 12
+      "percentage": 16
     },
     {
       "language": "CSS",
-      "percentage": 12
+      "percentage": 8
     },
     {
       "language": "C",
-      "percentage": 12
+      "percentage": 8
     }
   ],
   "timeline": [
@@ -283,7 +355,7 @@
     },
     {
       "x": "2025-11",
-      "y": 13
+      "y": 17
     }
   ],
   "skills": [],
