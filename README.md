@@ -1,10 +1,10 @@
 # 🚀 Advanced Developer Portfolio with Auto-Sync GitHub Data
 
-[![Anurag's GitHub stats](https://ragilmalik-readme-stats.vercel.app/api?username=ragilmalik&show_icons=true&theme=transparent&include_all_commits=true&)](https://github.com/anuraghazra/github-readme-stats)
+[![Anurag's GitHub stats](https://ragilmalik-readme-stats.vercel.app/api?username=ragilmalik&show_icons=true&theme=transparent&include_all_commits=true&)](https://github.com/ragilmalik/readme-stats)
 
-[//]: [![Readme Card](https://ragilmalik-readme-stats.vercel.app/api/pin/?username=ragilmalik&repo=readme-stats)](https://github.com/anuraghazra/github-readme-stats)
+[![Readme Card](https://ragilmalik-readme-stats.vercel.app/api/pin/?username=ragilmalik&repo=readme-stats)](https://github.com/ragilmalik/readme-stats)
 
- [![Top Langs](https://ragilmalik-readme-stats.vercel.app/api/top-langs/?username=ragilmalik&layout=pie)](https://github.com/anuraghazra/github-readme-stats)
+ [![Top Langs](https://ragilmalik-readme-stats.vercel.app/api/top-langs/?username=ragilmalik&layout=pie)](https://github.com/ragilmalik/readme-stats)
  
 
 <div align="center">
