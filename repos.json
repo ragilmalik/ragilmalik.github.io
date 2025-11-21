@@ -1,8 +1,8 @@
 {
   "username": "ragilmalik",
-  "lastUpdated": "2025-11-20T01:07:02Z",
+  "lastUpdated": "2025-11-21T01:07:47Z",
   "stats": {
-    "totalRepos": 17,
+    "totalRepos": 19,
     "followers": 5,
     "yearsActive": 7
   },
@@ -13,11 +13,11 @@
       "language": "HTML",
       "stars": 0,
       "forks": 0,
-      "updated": "2025-11-20",
+      "updated": "2025-11-21",
       "url": "https://github.com/ragilmalik/starred-repos",
       "topics": [],
       "created_at": "2025-11-19",
-      "size": 1411,
+      "size": 1550,
       "homepage": "https://github.ragilmalik.com/starred-repos/",
       "is_fork": false,
       "default_branch": "main",
@@ -26,20 +26,56 @@
       "license": null
     },
     {
+      "name": "readme-stats",
+      "description": null,
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "updated": "2025-11-20",
+      "url": "https://github.com/ragilmalik/readme-stats",
+      "topics": [],
+      "created_at": "2025-11-20",
+      "size": 736,
+      "homepage": "https://ragilmalik-readme-stats.vercel.app",
+      "is_fork": false,
+      "default_branch": "main",
+      "open_issues": 3,
+      "watchers": 0,
+      "license": "MIT License"
+    },
+    {
       "name": "ragilmalik.github.io",
       "description": "Github Pages Portofolio",
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "updated": "2025-11-19",
+      "updated": "2025-11-20",
       "url": "https://github.com/ragilmalik/ragilmalik.github.io",
       "topics": [],
       "created_at": "2025-10-04",
-      "size": 136,
+      "size": 185,
       "homepage": "https://github.ragilmalik.com/",
       "is_fork": false,
       "default_branch": "main",
       "open_issues": 1,
+      "watchers": 0,
+      "license": null
+    },
+    {
+      "name": "ragilmalik",
+      "description": "GIthub Profile",
+      "language": null,
+      "stars": 0,
+      "forks": 0,
+      "updated": "2025-11-20",
+      "url": "https://github.com/ragilmalik/ragilmalik",
+      "topics": [],
+      "created_at": "2025-11-20",
+      "size": 29,
+      "homepage": null,
+      "is_fork": false,
+      "default_branch": "main",
+      "open_issues": 0,
       "watchers": 0,
       "license": null
     },
@@ -317,23 +353,23 @@
   "languageStats": [
     {
       "language": "Python",
-      "percentage": 41
-    },
-    {
-      "language": "HTML",
-      "percentage": 25
+      "percentage": 38
     },
     {
       "language": "JavaScript",
-      "percentage": 16
+      "percentage": 23
+    },
+    {
+      "language": "HTML",
+      "percentage": 23
     },
     {
       "language": "CSS",
-      "percentage": 8
+      "percentage": 7
     },
     {
       "language": "C",
-      "percentage": 8
+      "percentage": 7
     }
   ],
   "timeline": [
@@ -355,7 +391,7 @@
     },
     {
       "x": "2025-11",
-      "y": 17
+      "y": 19
     }
   ],
   "skills": [],
