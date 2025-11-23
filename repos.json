@@ -1,8 +1,8 @@
 {
   "username": "ragilmalik",
-  "lastUpdated": "2025-11-22T01:05:25Z",
+  "lastUpdated": "2025-11-23T01:17:52Z",
   "stats": {
-    "totalRepos": 19,
+    "totalRepos": 20,
     "followers": 5,
     "yearsActive": 7
   },
@@ -13,11 +13,11 @@
       "language": "HTML",
       "stars": 0,
       "forks": 0,
-      "updated": "2025-11-22",
+      "updated": "2025-11-23",
       "url": "https://github.com/ragilmalik/starred-repos",
       "topics": [],
       "created_at": "2025-11-19",
-      "size": 2161,
+      "size": 4041,
       "homepage": "http://github.ragilmalik.com/starred-repos/",
       "is_fork": false,
       "default_branch": "main",
@@ -31,17 +31,35 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "updated": "2025-11-21",
+      "updated": "2025-11-22",
       "url": "https://github.com/ragilmalik/ragilmalik.github.io",
       "topics": [],
       "created_at": "2025-10-04",
-      "size": 187,
+      "size": 188,
       "homepage": "https://github.ragilmalik.com/",
       "is_fork": false,
       "default_branch": "main",
       "open_issues": 1,
       "watchers": 0,
       "license": null
+    },
+    {
+      "name": "open-lovable",
+      "description": "🔥 Clone and recreate any website as a modern React app in seconds",
+      "language": null,
+      "stars": 0,
+      "forks": 0,
+      "updated": "2025-11-22",
+      "url": "https://github.com/ragilmalik/open-lovable",
+      "topics": [],
+      "created_at": "2025-11-22",
+      "size": 1233,
+      "homepage": "https://open-lovable-seven-iota.vercel.app",
+      "is_fork": true,
+      "default_branch": "main",
+      "open_issues": 0,
+      "watchers": 0,
+      "license": "MIT License"
     },
     {
       "name": "readme-stats",
@@ -391,7 +409,7 @@
     },
     {
       "x": "2025-11",
-      "y": 19
+      "y": 20
     }
   ],
   "skills": [],
