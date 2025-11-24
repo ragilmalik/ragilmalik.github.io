@@ -20,7 +20,11 @@ class AdvancedPortfolio {
         this.currentText = '';
         this.isDeleting = false;
         this.isLoaded = false;
-        
+
+        // Chart instances for cleanup
+        this.languageChart = null;
+        this.timelineChart = null;
+
         // Dynamic repository data - loaded from repos.json (auto-synced via GitHub Actions)
         this.repositories = [];
         this.repoData = null;
@@ -865,6 +869,12 @@ class AdvancedPortfolio {
         try {
             console.log('Creating language chart with dynamic data...');
 
+            // Destroy existing chart if it exists
+            if (this.languageChart) {
+                this.languageChart.destroy();
+                this.languageChart = null;
+            }
+
             // Use dynamic language stats from repos.json
             const labels = this.languageStats.map(stat => stat.language);
             const data = this.languageStats.map(stat => stat.percentage);
@@ -875,7 +885,7 @@ class AdvancedPortfolio {
                 return;
             }
 
-            new Chart(ctx, {
+            this.languageChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     labels: labels,
@@ -959,6 +969,12 @@ class AdvancedPortfolio {
         try {
             console.log('Creating timeline chart with dynamic data...');
 
+            // Destroy existing chart if it exists
+            if (this.timelineChart) {
+                this.timelineChart.destroy();
+                this.timelineChart = null;
+            }
+
             // Use dynamic timeline data from repos.json
             const timelineData = this.timeline || [];
 
@@ -967,7 +983,7 @@ class AdvancedPortfolio {
                 return;
             }
 
-            new Chart(ctx, {
+            this.timelineChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     datasets: [{
@@ -1450,11 +1466,15 @@ class AdvancedPortfolio {
     startAnimationLoop() {
         const animate = (time) => {
             this.frameCount++;
-            
-            // Update Three.js scene
-            if (this.particles && this.particles.material.uniforms) {
+
+            // Update Three.js scene with safety checks
+            if (this.particles && this.particles.material && this.particles.material.uniforms && this.particles.material.uniforms.time) {
                 this.particles.rotation.y += 0.002;
-                this.particles.material.uniforms.time.value = time * 0.001;
+                try {
+                    this.particles.material.uniforms.time.value = time * 0.001;
+                } catch (error) {
+                    console.warn('Error updating shader uniform:', error);
+                }
             }
             
             // Animate floating shapes
