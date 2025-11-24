@@ -18,6 +18,14 @@ jobs:
         with:
           token: ${{ secrets.GH_PERSONAL_TOKEN }}
 
+      - name: Check System Info
+        run: |
+          echo "Running on Namespace.so infrastructure"
+          echo "OS Info:"
+          cat /etc/os-release
+          echo "CPU Info:"
+          lscpu
+
       - name: Fetch GitHub repositories
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_TOKEN }}
