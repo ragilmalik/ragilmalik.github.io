@@ -1,8 +1,8 @@
 {
   "username": "ragilmalik",
-  "lastUpdated": "2025-11-29T01:07:15Z",
+  "lastUpdated": "2025-11-30T01:17:26Z",
   "stats": {
-    "totalRepos": 20,
+    "totalRepos": 21,
     "followers": 5,
     "yearsActive": 7
   },
@@ -13,11 +13,11 @@
       "language": "HTML",
       "stars": 0,
       "forks": 0,
-      "updated": "2025-11-29",
+      "updated": "2025-11-30",
       "url": "https://github.com/ragilmalik/starred-repos",
       "topics": [],
       "created_at": "2025-11-19",
-      "size": 4974,
+      "size": 5131,
       "homepage": "http://github.ragilmalik.com/starred-repos/",
       "is_fork": false,
       "default_branch": "main",
@@ -31,7 +31,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "updated": "2025-11-28",
+      "updated": "2025-11-29",
       "url": "https://github.com/ragilmalik/ragilmalik.github.io",
       "topics": [],
       "created_at": "2025-10-04",
@@ -40,6 +40,24 @@
       "is_fork": false,
       "default_branch": "main",
       "open_issues": 1,
+      "watchers": 0,
+      "license": null
+    },
+    {
+      "name": "git-cloner",
+      "description": "Run \"git clone\" in batch.",
+      "language": "HTML",
+      "stars": 0,
+      "forks": 0,
+      "updated": "2025-11-29",
+      "url": "https://github.com/ragilmalik/git-cloner",
+      "topics": [],
+      "created_at": "2025-11-26",
+      "size": 159011,
+      "homepage": "",
+      "is_fork": false,
+      "default_branch": "main",
+      "open_issues": 0,
       "watchers": 0,
       "license": null
     },
@@ -371,15 +389,15 @@
   "languageStats": [
     {
       "language": "Python",
-      "percentage": 38
-    },
-    {
-      "language": "JavaScript",
-      "percentage": 23
+      "percentage": 35
     },
     {
       "language": "HTML",
-      "percentage": 23
+      "percentage": 28
+    },
+    {
+      "language": "JavaScript",
+      "percentage": 21
     },
     {
       "language": "CSS",
@@ -409,7 +427,7 @@
     },
     {
       "x": "2025-11",
-      "y": 20
+      "y": 21
     }
   ],
   "skills": [],
