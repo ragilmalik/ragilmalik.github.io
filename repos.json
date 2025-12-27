@@ -1,8 +1,8 @@
 {
   "username": "ragilmalik",
-  "lastUpdated": "2025-12-26T01:13:21Z",
+  "lastUpdated": "2025-12-27T01:11:20Z",
   "stats": {
-    "totalRepos": 22,
+    "totalRepos": 23,
     "followers": 4,
     "yearsActive": 7
   },
@@ -13,11 +13,11 @@
       "language": "HTML",
       "stars": 0,
       "forks": 0,
-      "updated": "2025-12-26",
+      "updated": "2025-12-27",
       "url": "https://github.com/ragilmalik/starred-repos",
       "topics": [],
       "created_at": "2025-11-19",
-      "size": 9378,
+      "size": 9546,
       "homepage": "http://github.ragilmalik.com/starred-repos/",
       "is_fork": false,
       "default_branch": "main",
@@ -31,7 +31,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "updated": "2025-12-25",
+      "updated": "2025-12-26",
       "url": "https://github.com/ragilmalik/ragilmalik.github.io",
       "topics": [],
       "created_at": "2025-10-04",
@@ -42,6 +42,42 @@
       "open_issues": 1,
       "watchers": 0,
       "license": null
+    },
+    {
+      "name": "open-lovable",
+      "description": "🔥 Clone and recreate any website as a modern React app in seconds",
+      "language": "TypeScript",
+      "stars": 0,
+      "forks": 0,
+      "updated": "2025-12-26",
+      "url": "https://github.com/ragilmalik/open-lovable",
+      "topics": [],
+      "created_at": "2025-11-22",
+      "size": 845,
+      "homepage": "https://open-lovable-seven-iota.vercel.app",
+      "is_fork": true,
+      "default_branch": "main",
+      "open_issues": 0,
+      "watchers": 0,
+      "license": "MIT License"
+    },
+    {
+      "name": "vercel-proxy",
+      "description": "Let's build your own website proxy using the template in vercel.com.",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "updated": "2025-12-26",
+      "url": "https://github.com/ragilmalik/vercel-proxy",
+      "topics": [],
+      "created_at": "2025-12-26",
+      "size": 1201,
+      "homepage": "https://mfavant.xyz/",
+      "is_fork": true,
+      "default_branch": "master",
+      "open_issues": 0,
+      "watchers": 0,
+      "license": "MIT License"
     },
     {
       "name": "git-cloner",
@@ -78,24 +114,6 @@
       "open_issues": 0,
       "watchers": 0,
       "license": "Other"
-    },
-    {
-      "name": "open-lovable",
-      "description": "🔥 Clone and recreate any website as a modern React app in seconds",
-      "language": null,
-      "stars": 0,
-      "forks": 0,
-      "updated": "2025-11-22",
-      "url": "https://github.com/ragilmalik/open-lovable",
-      "topics": [],
-      "created_at": "2025-11-22",
-      "size": 1233,
-      "homepage": "https://open-lovable-seven-iota.vercel.app",
-      "is_fork": true,
-      "default_branch": "main",
-      "open_issues": 0,
-      "watchers": 0,
-      "license": "MIT License"
     },
     {
       "name": "readme-stats",
@@ -407,23 +425,27 @@
   "languageStats": [
     {
       "language": "Python",
-      "percentage": 35
-    },
-    {
-      "language": "HTML",
-      "percentage": 28
+      "percentage": 31
     },
     {
       "language": "JavaScript",
-      "percentage": 21
+      "percentage": 25
+    },
+    {
+      "language": "HTML",
+      "percentage": 25
+    },
+    {
+      "language": "TypeScript",
+      "percentage": 6
     },
     {
       "language": "CSS",
-      "percentage": 7
+      "percentage": 6
     },
     {
       "language": "C",
-      "percentage": 7
+      "percentage": 6
     }
   ],
   "timeline": [
@@ -446,6 +468,10 @@
     {
       "x": "2025-11",
       "y": 22
+    },
+    {
+      "x": "2025-12",
+      "y": 23
     }
   ],
   "skills": [],
@@ -454,6 +480,7 @@
     "CSS",
     "HTML",
     "JavaScript",
-    "Python"
+    "Python",
+    "TypeScript"
   ]
 }
