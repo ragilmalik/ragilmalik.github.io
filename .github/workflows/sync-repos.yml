@@ -10,7 +10,7 @@ on:
 
 jobs:
   sync:
-    runs-on: namespace-profile-ragilmalik-linux
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
