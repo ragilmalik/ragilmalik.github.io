@@ -1,9 +1,9 @@
 {
   "username": "ragilmalik",
-  "lastUpdated": "2026-03-02T01:28:34Z",
+  "lastUpdated": "2026-05-13T18:04:52Z",
   "stats": {
-    "totalRepos": 27,
-    "followers": 4,
+    "totalRepos": 30,
+    "followers": 6,
     "yearsActive": 8
   },
   "repositories": [
@@ -13,11 +13,11 @@
       "language": "HTML",
       "stars": 0,
       "forks": 0,
-      "updated": "2026-03-02",
+      "updated": "2026-05-13",
       "url": "https://github.com/ragilmalik/starred-repos",
       "topics": [],
       "created_at": "2025-11-19",
-      "size": 14715,
+      "size": 14911,
       "homepage": "http://github.ragilmalik.com/starred-repos/",
       "is_fork": false,
       "default_branch": "main",
@@ -31,11 +31,11 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "updated": "2026-03-01",
+      "updated": "2026-05-13",
       "url": "https://github.com/ragilmalik/ragilmalik.github.io",
       "topics": [],
       "created_at": "2025-10-04",
-      "size": 207,
+      "size": 211,
       "homepage": "https://github.ragilmalik.com/",
       "is_fork": false,
       "default_branch": "main",
@@ -44,16 +44,34 @@
       "license": null
     },
     {
-      "name": "chat",
-      "description": "Lightweight plug & play, self-hosted, zeroconfig node.js chat.",
+      "name": "cloud-mail",
+      "description": "A Cloudflare-based email service  | 基于 Cloudflare 的邮箱服务  | Cloudflare Email 邮箱 Mail",
       "language": null,
       "stars": 0,
       "forks": 0,
-      "updated": "2026-02-17",
+      "updated": "2026-04-19",
+      "url": "https://github.com/ragilmalik/cloud-mail",
+      "topics": [],
+      "created_at": "2026-04-19",
+      "size": 28877,
+      "homepage": "https://skymail.ink",
+      "is_fork": true,
+      "default_branch": "main",
+      "open_issues": 0,
+      "watchers": 0,
+      "license": "MIT License"
+    },
+    {
+      "name": "chat",
+      "description": "Lightweight plug & play, self-hosted, zeroconfig node.js chat.",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "updated": "2026-04-03",
       "url": "https://github.com/ragilmalik/chat",
       "topics": [],
       "created_at": "2026-02-17",
-      "size": 1006,
+      "size": 1024,
       "homepage": "",
       "is_fork": true,
       "default_branch": "master",
@@ -62,29 +80,101 @@
       "license": "GNU General Public License v3.0"
     },
     {
-      "name": "docs",
-      "description": null,
-      "language": "MDX",
+      "name": "openclaw",
+      "description": "Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞 ",
+      "language": null,
       "stars": 0,
       "forks": 0,
-      "updated": "2026-02-11",
-      "url": "https://github.com/ragilmalik/docs",
+      "updated": "2026-03-30",
+      "url": "https://github.com/ragilmalik/openclaw",
       "topics": [],
-      "created_at": "2026-02-11",
-      "size": 359,
-      "homepage": null,
-      "is_fork": false,
+      "created_at": "2026-03-30",
+      "size": 362470,
+      "homepage": "https://openclaw.ai",
+      "is_fork": true,
       "default_branch": "main",
       "open_issues": 0,
       "watchers": 0,
       "license": "MIT License"
     },
     {
+      "name": "temp-mail",
+      "description": null,
+      "language": "TypeScript",
+      "stars": 0,
+      "forks": 0,
+      "updated": "2026-03-23",
+      "url": "https://github.com/ragilmalik/temp-mail",
+      "topics": [],
+      "created_at": "2026-03-23",
+      "size": 193,
+      "homepage": null,
+      "is_fork": false,
+      "default_branch": "main",
+      "open_issues": 0,
+      "watchers": 0,
+      "license": null
+    },
+    {
+      "name": "telegraph",
+      "description": "Image Hosting solution, Flickr/imgur alternative, make it easy for users to share their images. Using Cloudflare Pages and Telegraph.",
+      "language": null,
+      "stars": 0,
+      "forks": 0,
+      "updated": "2026-03-23",
+      "url": "https://github.com/ragilmalik/telegraph",
+      "topics": [],
+      "created_at": "2026-03-23",
+      "size": 1644,
+      "homepage": "https://im.gurl.eu.org",
+      "is_fork": true,
+      "default_branch": "main",
+      "open_issues": 0,
+      "watchers": 0,
+      "license": "Creative Commons Zero v1.0 Universal"
+    },
+    {
+      "name": "cloudflare-image-hosting",
+      "description": "Open-source file hosting solution based on CloudFlare  (Image hosting/File storage/Cloud drive) / 基于 CloudFlare 的开源文件托管解决方案（图床/文件床/网盘）",
+      "language": null,
+      "stars": 0,
+      "forks": 0,
+      "updated": "2026-03-23",
+      "url": "https://github.com/ragilmalik/cloudflare-image-hosting",
+      "topics": [],
+      "created_at": "2026-03-23",
+      "size": 612460,
+      "homepage": "https://cfbed.sanyue.de",
+      "is_fork": true,
+      "default_branch": "main",
+      "open_issues": 0,
+      "watchers": 0,
+      "license": "MIT License"
+    },
+    {
+      "name": "cloudflare-image-storage",
+      "description": "A free image hosting application based on Cloudflare's Worker, R2, Pages, and D1 architectures.一款基于 Cloudflare 的 Worker、R2、Pages、D1 实现的免费图床应用",
+      "language": "Vue",
+      "stars": 0,
+      "forks": 0,
+      "updated": "2026-03-23",
+      "url": "https://github.com/ragilmalik/cloudflare-image-storage",
+      "topics": [],
+      "created_at": "2026-03-23",
+      "size": 8199,
+      "homepage": "",
+      "is_fork": true,
+      "default_branch": "main",
+      "open_issues": 0,
+      "watchers": 0,
+      "license": "Apache License 2.0"
+    },
+    {
       "name": "esp01-ddns",
       "description": "A ddns script for ESP01, configured for Cloudflare",
       "language": "C",
       "stars": 1,
-      "forks": 0,
+      "forks": 1,
       "updated": "2026-01-07",
       "url": "https://github.com/ragilmalik/esp01-ddns",
       "topics": [],
@@ -98,53 +188,17 @@
       "license": "MIT License"
     },
     {
-      "name": "Sink",
-      "description": "⚡ A Simple / Speedy / Secure Link Shortener with Analytics, 100% run on Cloudflare.",
-      "language": null,
-      "stars": 0,
-      "forks": 0,
-      "updated": "2025-12-27",
-      "url": "https://github.com/ragilmalik/Sink",
-      "topics": [],
-      "created_at": "2025-12-27",
-      "size": 4108,
-      "homepage": "https://Sink.Cool",
-      "is_fork": true,
-      "default_branch": "master",
-      "open_issues": 0,
-      "watchers": 0,
-      "license": "GNU Affero General Public License v3.0"
-    },
-    {
       "name": "awesome-badges",
       "description": "😎 A curated list of GitHub badges for your next  project",
       "language": null,
       "stars": 0,
-      "forks": 0,
+      "forks": 1,
       "updated": "2025-12-27",
       "url": "https://github.com/ragilmalik/awesome-badges",
       "topics": [],
       "created_at": "2025-12-27",
       "size": 2577,
       "homepage": "https://envoy-vc.github.io/awesome-badges/",
-      "is_fork": true,
-      "default_branch": "main",
-      "open_issues": 0,
-      "watchers": 0,
-      "license": "MIT License"
-    },
-    {
-      "name": "open-lovable",
-      "description": "🔥 Clone and recreate any website as a modern React app in seconds",
-      "language": "TypeScript",
-      "stars": 0,
-      "forks": 0,
-      "updated": "2025-12-26",
-      "url": "https://github.com/ragilmalik/open-lovable",
-      "topics": [],
-      "created_at": "2025-11-22",
-      "size": 845,
-      "homepage": "https://open-lovable-seven-iota.vercel.app",
       "is_fork": true,
       "default_branch": "main",
       "open_issues": 0,
@@ -264,7 +318,7 @@
       "description": "The most comprehensive and immersive collection of Python projects on GitHub!",
       "language": "Python",
       "stars": 0,
-      "forks": 0,
+      "forks": 1,
       "updated": "2025-11-19",
       "url": "https://github.com/ragilmalik/Python-Collection",
       "topics": [],
@@ -497,22 +551,22 @@
   "languageStats": [
     {
       "language": "Python",
-      "percentage": 29
+      "percentage": 27
     },
     {
       "language": "JavaScript",
-      "percentage": 23
+      "percentage": 27
     },
     {
       "language": "HTML",
-      "percentage": 23
+      "percentage": 22
     },
     {
-      "language": "TypeScript",
+      "language": "Vue",
       "percentage": 5
     },
     {
-      "language": "MDX",
+      "language": "TypeScript",
       "percentage": 5
     },
     {
@@ -543,15 +597,23 @@
     },
     {
       "x": "2025-11",
-      "y": 22
+      "y": 21
     },
     {
       "x": "2025-12",
-      "y": 25
+      "y": 23
     },
     {
       "x": "2026-02",
-      "y": 27
+      "y": 24
+    },
+    {
+      "x": "2026-03",
+      "y": 29
+    },
+    {
+      "x": "2026-04",
+      "y": 30
     }
   ],
   "skills": [],
@@ -560,8 +622,8 @@
     "CSS",
     "HTML",
     "JavaScript",
-    "MDX",
     "Python",
-    "TypeScript"
+    "TypeScript",
+    "Vue"
   ]
 }
