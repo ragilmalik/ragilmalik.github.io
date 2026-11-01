@@ -124,9 +124,10 @@
                         <span class="title-sub typing-text" id="typing-text"></span>
                     </h1>
                     <p class="hero-description">
-                        Python GUI developer from Indonesia, specializing in automation tools
-                        and desktop applications. Passionate about creating efficient solutions that
-                        make complex tasks simple and accessible.
+                        Full-stack developer from Indonesia specializing in Python GUI applications,
+                        web development, and Cloudflare-based solutions. Building practical automation
+                        tools—from desktop file managers to cloud-hosted services and IoT integrations.
+                        Turning complex workflows into elegant, user-friendly applications.
                     </p>
                     <div class="hero-actions">
                         <button class="cta-button primary" onclick="document.getElementById('projects').scrollIntoView({behavior: 'smooth'})">
@@ -145,7 +146,7 @@
                         <div class="stat-icon">
                             <i class="fas fa-folder-open"></i>
                         </div>
-                        <div class="stat-number" data-count="9">0</div>
+                        <div class="stat-number" data-count="11">0</div>
                         <div class="stat-label">Repositories</div>
                     </div>
                     <div class="stat-card">
@@ -159,7 +160,7 @@
                         <div class="stat-icon">
                             <i class="fab fa-python"></i>
                         </div>
-                        <div class="stat-number" data-count="67">0</div>
+                        <div class="stat-number" data-count="55">0</div>
                         <div class="stat-label">% Python</div>
                     </div>
                 </div>
@@ -192,11 +193,11 @@
                         </div>
                         <div class="github-stats">
                             <div class="github-stat">
-                                <div class="stat-value" id="total-repos">9</div>
+                                <div class="stat-value" id="total-repos">11</div>
                                 <div class="stat-name">Public Repos</div>
                             </div>
                             <div class="github-stat">
-                                <div class="stat-value" id="total-followers">5</div>
+                                <div class="stat-value" id="total-followers">3</div>
                                 <div class="stat-name">Followers</div>
                             </div>
                             <div class="github-stat">
@@ -226,13 +227,52 @@
                         </div>
                     </div>
 
-                    <!-- Activity Heatmap -->
+                    <!-- Repository Activity -->
                     <div class="stat-panel activity-panel">
                         <div class="panel-header">
-                            <h3>Repository Activity</h3>
+                            <h3>Recent Activity</h3>
+                            <div class="activity-period">Last 30 Days</div>
+                        </div>
+                        <div class="activity-stats-summary">
+                            <div class="activity-stat-item">
+                                <div class="activity-stat-value" id="activity-30-days">0</div>
+                                <div class="activity-stat-label">Updates</div>
+                            </div>
+                            <div class="activity-stat-item">
+                                <div class="activity-stat-value" id="activity-most-active">0</div>
+                                <div class="activity-stat-label">Peak Day</div>
+                            </div>
                         </div>
                         <div class="activity-grid" id="activity-grid">
                             <!-- Generated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Total Stars -->
+                    <div class="stat-panel stars-panel">
+                        <div class="panel-header">
+                            <h3>Total Stars</h3>
+                        </div>
+                        <div class="github-stats">
+                            <div class="github-stat single-stat">
+                                <div class="stat-icon-large">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="stat-value large" id="total-stars">0</div>
+                                <div class="stat-name">Stars Earned</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Technologies Used -->
+                    <div class="stat-panel topics-panel">
+                        <div class="panel-header">
+                            <h3>Technologies</h3>
+                        </div>
+                        <div class="languages-container" id="languages-container">
+                            <div class="languages-grid">
+                                <!-- Languages will be generated dynamically -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -256,8 +296,11 @@
                 <div class="filter-controls">
                     <button class="filter-btn active" data-filter="all">All</button>
                     <button class="filter-btn" data-filter="python">Python</button>
+                    <button class="filter-btn" data-filter="javascript">JavaScript</button>
                     <button class="filter-btn" data-filter="css">CSS</button>
+                    <button class="filter-btn" data-filter="html">HTML</button>
                     <button class="filter-btn" data-filter="gui">GUI</button>
+                    <button class="filter-btn" data-filter="cloudflare">Cloudflare</button>
                 </div>
             </div>
             
@@ -280,33 +323,7 @@
                     <div class="skill-category">
                         <h3>Programming Languages</h3>
                         <div class="skills-list">
-                            <div class="skill-item" data-level="90">
-                                <div class="skill-info">
-                                    <span class="skill-name">Python</span>
-                                    <span class="skill-percentage">90%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-fill" style="--skill-color: #3776ab"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item" data-level="70">
-                                <div class="skill-info">
-                                    <span class="skill-name">CSS</span>
-                                    <span class="skill-percentage">70%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-fill" style="--skill-color: #1572B6"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item" data-level="60">
-                                <div class="skill-info">
-                                    <span class="skill-name">JavaScript</span>
-                                    <span class="skill-percentage">60%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-fill" style="--skill-color: #F7DF1E"></div>
-                                </div>
-                            </div>
+                            <!-- Skills generated dynamically from repos.json languageStats -->
                         </div>
                     </div>
 

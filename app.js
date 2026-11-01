@@ -20,125 +20,35 @@ class AdvancedPortfolio {
         this.currentText = '';
         this.isDeleting = false;
         this.isLoaded = false;
-        
-        // Real repository data from GitHub API
-        this.repositories = [
-            {
-                name: "CloudPaste",
-                description: "A Cloudflare-based online text/large file sharing platform that supports multiple syntax Markdown rendering, self-destructing messages, S3 aggregated storage, password protection, and more.",
-                language: "JavaScript",
-                stars: 0,
-                forks: 0,
-                updated: "2025-11-08",
-                url: "https://github.com/ragilmalik/CloudPaste",
-                topics: ["cloudflare", "file-sharing", "markdown", "webdav"],
-                created_at: "2025-11-08",
-                size: 60212
-            },
-            {
-                name: "microfeed",
-                description: "A lightweight CMS self-hosted on Cloudflare, for podcasts, blogs, photos, videos, documents, and curated URLs.",
-                language: "JavaScript",
-                stars: 0,
-                forks: 0,
-                updated: "2025-10-16",
-                url: "https://github.com/ragilmalik/microfeed",
-                topics: ["cloudflare", "cms", "podcasts", "blogs"],
-                created_at: "2025-10-16",
-                size: 1501
-            },
-            {
-                name: "Python-CLI-Email-Validator",
-                description: "Command-line email validation tool built with Python",
-                language: "Python",
-                stars: 0,
-                forks: 0,
-                updated: "2025-10-12",
-                url: "https://github.com/ragilmalik/Python-CLI-Email-Validator",
-                topics: ["python", "cli", "email", "validation"],
-                created_at: "2025-10-12",
-                size: 8
-            },
-            {
-                name: "ragilmalik.github.io",
-                description: "GitHub Pages Portfolio website showcasing projects and skills",
-                language: "JavaScript",
-                stars: 0,
-                forks: 0,
-                updated: "2025-11-10",
-                url: "https://github.com/ragilmalik/ragilmalik.github.io",
-                topics: ["portfolio", "github-pages", "javascript", "threejs"],
-                created_at: "2025-10-04",
-                size: 97
-            },
-            {
-                name: "Python-GUI-Duplicate-File-Finder",
-                description: "A fast, no-nonsense Windows GUI for finding duplicate files in a folder (non-recursive by default). It hashes files with SHA-256, moves duplicates to a Duplicates/ folder next to the source",
-                language: "Python",
-                stars: 0,
-                forks: 0,
-                updated: "2025-09-04",
-                url: "https://github.com/ragilmalik/Python-GUI-Duplicate-File-Finder",
-                topics: ["python", "gui", "duplicate-finder", "windows"],
-                created_at: "2025-09-04",
-                size: 5
-            },
-            {
-                name: "Python-GUI-Clipboard-Manager",
-                description: "A fast, lightweight, privacy-friendly clipboard history manager for Windows with a modern UI, drag-to-reorder, Quick Paste Palette, snipping, exports, and optional OCR. Built with PySide6 + SQLite",
-                language: "Python",
-                stars: 0,
-                forks: 0,
-                updated: "2025-09-04",
-                url: "https://github.com/ragilmalik/Python-GUI-Clipboard-Manager",
-                topics: ["python", "clipboard", "gui", "pyside6", "sqlite"],
-                created_at: "2025-08-31",
-                size: 10
-            },
-            {
-                name: "Python-GUI-Media-Organizer",
-                description: "Python GUI to organize your photos and videos into its each creation date time folder",
-                language: "Python",
-                stars: 0,
-                forks: 0,
-                updated: "2025-08-17",
-                url: "https://github.com/ragilmalik/Python-GUI-Media-Organizer",
-                topics: ["python", "gui", "media", "organizer"],
-                created_at: "2025-08-17",
-                size: 18
-            },
-            {
-                name: "Python-GUI-Mover",
-                description: "A Minimalist python GUI to move file because Windows's one is annoying",
-                language: "Python",
-                stars: 0,
-                forks: 0,
-                updated: "2025-08-20",
-                url: "https://github.com/ragilmalik/Python-GUI-Mover",
-                topics: ["python", "gui", "file-manager", "windows"],
-                created_at: "2025-08-17",
-                size: 33
-            },
-            {
-                name: "RPG",
-                description: "Random Password Generator - A secure password generation tool with customizable options",
-                language: "Python",
-                stars: 0,
-                forks: 0,
-                updated: "2022-10-17",
-                url: "https://github.com/ragilmalik/RPG",
-                topics: ["python", "password-generator", "security"],
-                created_at: "2022-10-17",
-                size: 11289
-            }
-        ];
+
+        // Chart instances for cleanup
+        this.languageChart = null;
+        this.timelineChart = null;
+
+        // Dynamic repository data - loaded from repos.json (auto-synced via GitHub Actions)
+        this.repositories = [];
+        this.repoData = null;
+        this.stats = {
+            totalRepos: 0,
+            followers: 0,
+            yearsActive: 0
+        };
+        this.languageStats = [];
+        this.timeline = [];
+        this.skills = [];
         
         this.languageColors = {
             'Python': '#3776ab',
             'CSS': '#1572B6',
             'JavaScript': '#F7DF1E',
             'HTML': '#E34F26',
-            'TypeScript': '#3178C6'
+            'TypeScript': '#3178C6',
+            'PHP': '#777BB4',
+            'C': '#A8B9CC',
+            'C++': '#f34b7d',
+            'Java': '#b07219',
+            'Go': '#00ADD8',
+            'Rust': '#dea584'
         };
         
         this.init();
@@ -148,12 +58,134 @@ class AdvancedPortfolio {
         try {
             console.log('Initializing portfolio...');
             await this.setupLoading();
+            await this.loadRepositoryData();
             await this.initializeComponents();
             this.hideLoading();
         } catch (error) {
             console.error('Error initializing portfolio:', error);
             this.hideLoading();
         }
+    }
+
+    async loadRepositoryData() {
+        try {
+            console.log('Loading repository data from repos.json...');
+            const response = await fetch('repos.json?t=' + Date.now());
+
+            if (!response.ok) {
+                console.warn(`repos.json not found or error: ${response.statusText}`);
+                console.warn('Using fallback: empty repository list. Run the GitHub Actions workflow to populate data.');
+                return;
+            }
+
+            this.repoData = await response.json();
+            this.repositories = this.repoData.repositories || [];
+            this.stats = this.repoData.stats || this.stats;
+            this.languageStats = this.repoData.languageStats || [];
+            this.timeline = this.repoData.timeline || [];
+            this.skills = this.repoData.skills || [];
+
+            console.log(`✅ Loaded ${this.repositories.length} repositories`);
+            console.log(`📊 Stats: ${this.stats.totalRepos} repos, ${this.stats.followers} followers, ${this.stats.yearsActive} years active`);
+            console.log(`📈 Language stats:`, this.languageStats);
+            console.log(`🏷️ Skills:`, this.skills);
+
+            // Update stats in the DOM
+            this.updateStatsDisplay();
+        } catch (error) {
+            console.error('❌ Error loading repository data:', error);
+            console.error('This is expected if repos.json does not exist yet.');
+            console.error('Solution: Run the GitHub Actions workflow to generate repos.json');
+            // Don't modify arrays - keep them empty and let the site still load
+        }
+    }
+
+    updateStatsDisplay() {
+        // Update stats counters with dynamic data
+        const statNumbers = document.querySelectorAll('.stat-number');
+        if (statNumbers.length >= 3) {
+            // Update data-count attributes for animation
+            statNumbers[0].dataset.count = this.stats.totalRepos || 0;
+            statNumbers[1].dataset.count = this.stats.yearsActive || 0;
+
+            // Calculate Python percentage from language stats
+            const pythonStat = this.languageStats.find(stat => stat.language === 'Python');
+            const pythonPercentage = pythonStat ? Math.round(pythonStat.percentage) : 0;
+            statNumbers[2].dataset.count = pythonPercentage;
+
+            // Trigger animation after updating data
+            this.animateCounters();
+        }
+
+        // Update GitHub Overview card in ADVANCED ANALYTICS section
+        const totalReposElement = document.getElementById('total-repos');
+        if (totalReposElement) {
+            totalReposElement.textContent = this.stats.totalRepos || 0;
+        }
+
+        const totalFollowersElement = document.getElementById('total-followers');
+        if (totalFollowersElement) {
+            totalFollowersElement.textContent = this.stats.followers || 0;
+        }
+
+        const yearsActiveElement = document.getElementById('years-active');
+        if (yearsActiveElement) {
+            yearsActiveElement.textContent = this.stats.yearsActive || 0;
+        }
+
+        // Update new stat cards: Total Stars and Total Languages
+        // Calculate total stars from all repositories
+        const totalStars = this.repositories.reduce((sum, repo) => sum + (repo.stars || 0), 0);
+        const totalStarsElement = document.getElementById('total-stars');
+        if (totalStarsElement) {
+            totalStarsElement.textContent = totalStars;
+        }
+
+        // Update Technologies card - show ALL languages as badges
+        this.updateLanguagesList();
+    }
+
+    updateLanguagesList() {
+        const languagesContainer = document.getElementById('languages-container');
+        if (!languagesContainer) return;
+
+        const languagesGrid = languagesContainer.querySelector('.languages-grid');
+        if (!languagesGrid) return;
+
+        // Clear existing content
+        languagesGrid.innerHTML = '';
+
+        // Get all unique languages from repos
+        const languagesSet = new Set();
+        this.repositories.forEach(repo => {
+            if (repo.language) {
+                languagesSet.add(repo.language);
+            }
+        });
+
+        // Convert to array and sort
+        const languages = Array.from(languagesSet).sort();
+
+        if (languages.length === 0) {
+            languagesGrid.innerHTML = '<div class="no-data">No languages detected</div>';
+            return;
+        }
+
+        // Create language badges
+        languages.forEach(language => {
+            const badge = document.createElement('div');
+            badge.className = 'language-badge';
+
+            const color = this.languageColors[language] || '#999999';
+            badge.style.setProperty('--lang-color', color);
+
+            badge.innerHTML = `
+                <span class="language-dot" style="background-color: ${color}"></span>
+                <span class="language-name">${language}</span>
+            `;
+
+            languagesGrid.appendChild(badge);
+        });
     }
 
     async setupLoading() {
@@ -195,10 +227,13 @@ class AdvancedPortfolio {
         
         console.log('Rendering projects...');
         this.renderProjects();
-        
+
+        console.log('Setting up skills...');
+        this.setupSkills();
+
         console.log('Setting up timeline...');
         this.setupTimeline();
-        
+
         console.log('Setting up performance monitor...');
         this.setupPerformanceMonitor();
         
@@ -230,19 +265,26 @@ class AdvancedPortfolio {
     startIntroAnimations() {
         // Check if GSAP is available
         if (typeof gsap !== 'undefined') {
+            // First, ensure stat cards are visible by clearing any stuck inline styles
+            gsap.set('.stat-card', { clearProps: 'all' });
+
             gsap.timeline()
                 .from('.hero-greeting', { duration: 1, y: 50, opacity: 0, ease: 'power3.out' })
                 .from('.hero-title .title-main', { duration: 1.2, y: 100, opacity: 0, ease: 'power3.out' }, '-=0.5')
                 .from('.hero-description', { duration: 1, y: 30, opacity: 0, ease: 'power2.out' }, '-=0.3')
                 .from('.hero-actions .cta-button', { duration: 0.8, y: 30, opacity: 0, stagger: 0.1, ease: 'power2.out' }, '-=0.5')
-                .from('.stat-card', { duration: 0.8, y: 30, opacity: 0, stagger: 0.1, ease: 'power2.out' }, '-=0.5');
+                .fromTo('.stat-card',
+                    { y: 30, opacity: 0 },
+                    { duration: 0.8, y: 0, opacity: 1, stagger: 0.1, ease: 'power2.out', clearProps: 'transform' },
+                    '-=0.5'
+                );
         } else {
             // Fallback CSS animations
             document.querySelectorAll('.hero-greeting, .hero-title, .hero-description, .cta-button, .stat-card').forEach((el, index) => {
                 el.style.animation = `fadeInUp 1s ease ${index * 0.1}s forwards`;
             });
         }
-        
+
         this.startTypingAnimation();
         this.animateCounters();
     }
@@ -341,33 +383,34 @@ class AdvancedPortfolio {
             const geometry = new THREE.BufferGeometry();
             geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
             geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-            geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+            geometry.setAttribute('particleSize', new THREE.BufferAttribute(sizes, 1));
             
             const material = new THREE.ShaderMaterial({
                 uniforms: {
                     time: { value: 0 }
                 },
                 vertexShader: `
-                    attribute float size;
-                    attribute vec3 color;
+                    precision highp float;
+                    attribute float particleSize;
                     varying vec3 vColor;
                     uniform float time;
-                    
+
                     void main() {
                         vColor = color;
                         vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
                         gl_Position = projectionMatrix * mvPosition;
-                        gl_PointSize = size * (300.0 / -mvPosition.z) * (1.0 + sin(time * 2.0 + position.x * 0.01) * 0.5);
+                        gl_PointSize = particleSize * (300.0 / -mvPosition.z) * (1.0 + sin(time * 2.0 + position.x * 0.01) * 0.5);
                     }
                 `,
                 fragmentShader: `
+                    precision highp float;
                     varying vec3 vColor;
-                    
+
                     void main() {
-                        float distance = length(gl_PointCoord - vec2(0.5));
-                        if (distance > 0.5) discard;
-                        
-                        float alpha = (1.0 - distance * 2.0) * 0.8;
+                        float dist = length(gl_PointCoord - vec2(0.5));
+                        if (dist > 0.5) discard;
+
+                        float alpha = (1.0 - dist * 2.0) * 0.8;
                         gl_FragColor = vec4(vColor, alpha);
                     }
                 `,
@@ -589,17 +632,17 @@ class AdvancedPortfolio {
     setupProjectFiltering() {
         const filterButtons = document.querySelectorAll('.filter-btn');
         const searchInput = document.getElementById('project-search');
-        
+
         filterButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 filterButtons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                
+
                 const filter = btn.dataset.filter;
                 this.filterProjects(filter, searchInput ? searchInput.value : '');
             });
         });
-        
+
         if (searchInput) {
             searchInput.addEventListener('input', (e) => {
                 const activeFilter = document.querySelector('.filter-btn.active');
@@ -611,20 +654,22 @@ class AdvancedPortfolio {
 
     filterProjects(filter, searchTerm = '') {
         const projectCards = document.querySelectorAll('.project-card');
-        
+
         projectCards.forEach(card => {
             const language = card.dataset.language || '';
             const name = card.dataset.name || '';
             const topics = card.dataset.topics || '';
-            
-            const matchesFilter = filter === 'all' || 
-                                language.includes(filter) || 
+            const description = card.querySelector('.project-description')?.textContent || '';
+
+            const matchesFilter = filter === 'all' ||
+                                language.includes(filter) ||
                                 topics.includes(filter);
-                                
-            const matchesSearch = !searchTerm || 
+
+            const matchesSearch = !searchTerm ||
                                 name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                topics.toLowerCase().includes(searchTerm.toLowerCase());
-            
+                                topics.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                description.toLowerCase().includes(searchTerm.toLowerCase());
+
             if (matchesFilter && matchesSearch) {
                 card.style.display = 'block';
                 card.style.opacity = '1';
@@ -686,79 +731,111 @@ class AdvancedPortfolio {
             console.warn('GSAP or ScrollTrigger not available, using fallback animations');
             return;
         }
-        
+
         try {
             // Register ScrollTrigger plugin
             gsap.registerPlugin(ScrollTrigger);
-            
-            // Section animations
+
+            // Section animations - only animate if elements exist
             gsap.utils.toArray('section').forEach(section => {
-                gsap.from(section.querySelectorAll('.section-title, .section-subtitle'), {
-                    duration: 1,
-                    y: 50,
-                    opacity: 0,
-                    stagger: 0.2,
-                    ease: 'power2.out',
-                    scrollTrigger: {
-                        trigger: section,
-                        start: 'top 80%',
-                        end: 'bottom 20%',
-                        toggleActions: 'play none none reverse'
+                const titleElements = section.querySelectorAll('.section-title, .section-subtitle');
+                if (titleElements.length > 0) {
+                    // Ensure section titles are visible
+                    gsap.set(titleElements, { clearProps: 'all' });
+
+                    gsap.fromTo(titleElements,
+                        { y: 50, opacity: 0 },
+                        {
+                            duration: 1,
+                            y: 0,
+                            opacity: 1,
+                            stagger: 0.2,
+                            ease: 'power2.out',
+                            clearProps: 'transform',
+                            scrollTrigger: {
+                                trigger: section,
+                                start: 'top 80%',
+                                end: 'bottom 20%',
+                                toggleActions: 'play none none reverse'
+                            }
+                        }
+                    );
+                }
+            });
+
+            // Stats panels animation - only if elements exist
+            const statPanels = document.querySelectorAll('.stat-panel');
+            if (statPanels.length > 0) {
+                // First ensure panels are visible by default
+                gsap.set('.stat-panel', { clearProps: 'all' });
+
+                // Then apply scroll-triggered animation
+                gsap.fromTo('.stat-panel',
+                    { y: 50, opacity: 0 },
+                    {
+                        duration: 0.8,
+                        y: 0,
+                        opacity: 1,
+                        stagger: 0.1,
+                        ease: 'power2.out',
+                        clearProps: 'transform',
+                        scrollTrigger: {
+                            trigger: '.stats-section',
+                            start: 'top 80%',
+                            once: true
+                        }
                     }
-                });
-            });
-            
-            // Stats panels animation
-            gsap.from('.stat-panel', {
-                duration: 0.8,
-                y: 50,
-                opacity: 0,
-                stagger: 0.1,
-                ease: 'power2.out',
-                scrollTrigger: {
-                    trigger: '.stats-section',
-                    start: 'top 80%'
-                }
-            });
-            
-            // Skills animation
-            gsap.from('.skill-category', {
-                duration: 0.8,
-                x: -50,
-                opacity: 0,
-                stagger: 0.2,
-                ease: 'power2.out',
-                scrollTrigger: {
-                    trigger: '.skills-section',
-                    start: 'top 80%'
-                }
-            });
-            
-            // Timeline animation
-            gsap.from('.timeline-item', {
-                duration: 0.8,
-                x: (index) => index % 2 === 0 ? -100 : 100,
-                opacity: 0,
-                stagger: 0.2,
-                ease: 'power2.out',
-                scrollTrigger: {
-                    trigger: '.timeline-section',
-                    start: 'top 80%'
-                }
-            });
-            
-            // Contact section animation
-            gsap.from('.contact-item, .contact-form-container', {
-                duration: 0.8,
-                y: 50,
-                opacity: 0,
-                stagger: 0.1,
-                ease: 'power2.out',
-                scrollTrigger: {
-                    trigger: '.contact-section',
-                    start: 'top 80%'
-                }
-            });
+                );
+            }
+
+            // Skills animation - only if elements exist
+            const skillCategories = document.querySelectorAll('.skill-category');
+            if (skillCategories.length > 0) {
+                // First ensure skill categories are visible
+                gsap.set('.skill-category', { clearProps: 'all' });
+
+                gsap.fromTo('.skill-category',
+                    { x: -50, opacity: 0 },
+                    {
+                        duration: 0.8,
+                        x: 0,
+                        opacity: 1,
+                        stagger: 0.2,
+                        ease: 'power2.out',
+                        clearProps: 'transform',
+                        scrollTrigger: {
+                            trigger: '.skills-section',
+                            start: 'top 80%'
+                        }
+                    }
+                );
+            }
+
+            // Timeline animation - skip since timeline items are created dynamically after this
+            // Timeline animations will be set up in setupTimeline() method
+
+            // Contact section animation - only if elements exist
+            const contactElements = document.querySelectorAll('.contact-item, .contact-form-container');
+            if (contactElements.length > 0) {
+                // First ensure contact elements are visible
+                gsap.set('.contact-item, .contact-form-container', { clearProps: 'all' });
+
+                gsap.fromTo('.contact-item, .contact-form-container',
+                    { y: 50, opacity: 0 },
+                    {
+                        duration: 0.8,
+                        y: 0,
+                        opacity: 1,
+                        stagger: 0.1,
+                        ease: 'power2.out',
+                        clearProps: 'transform',
+                        scrollTrigger: {
+                            trigger: '.contact-section',
+                            start: 'top 80%'
+                        }
+                    }
+                );
+            }
         } catch (error) {
             console.error('Error setting up GSAP animations:', error);
         }
@@ -788,22 +865,34 @@ class AdvancedPortfolio {
             setTimeout(() => this.setupLanguageChart(), 1000);
             return;
         }
-        
-        try {
-            console.log('Creating language chart...');
-            const languageData = {
-                'Python': 66.67,
-                'JavaScript': 33.33
-            };
 
-            new Chart(ctx, {
+        try {
+            console.log('Creating language chart with dynamic data...');
+
+            // Destroy existing chart if it exists
+            if (this.languageChart) {
+                this.languageChart.destroy();
+                this.languageChart = null;
+            }
+
+            // Use dynamic language stats from repos.json
+            const labels = this.languageStats.map(stat => stat.language);
+            const data = this.languageStats.map(stat => stat.percentage);
+            const colors = labels.map(lang => this.languageColors[lang] || '#999999');
+
+            if (labels.length === 0) {
+                console.warn('No language data available');
+                return;
+            }
+
+            this.languageChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: Object.keys(languageData),
+                    labels: labels,
                     datasets: [{
-                        data: Object.values(languageData),
-                        backgroundColor: ['#3776ab', '#F7DF1E'],
-                        borderColor: ['#00ffff', '#ffffff'],
+                        data: data,
+                        backgroundColor: colors,
+                        borderColor: colors.map((_, i) => i % 2 === 0 ? '#00ffff' : '#ffffff'),
                         borderWidth: 2
                     }]
                 },
@@ -828,7 +917,7 @@ class AdvancedPortfolio {
                     }
                 }
             });
-            console.log('Language chart created successfully');
+            console.log('Language chart created successfully with dynamic data');
         } catch (error) {
             console.error('Error creating language chart:', error);
             // Fallback: Create a simple text-based chart
@@ -841,14 +930,22 @@ class AdvancedPortfolio {
         container.innerHTML = `
             <div style="color: white; text-align: center; padding: 20px;">
                 <h4 style="margin-bottom: 15px;">Language Distribution</h4>
-                <div style="display: flex; justify-content: space-around; align-items: center;">
+                <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 10px;">
                     <div style="text-align: center;">
-                        <div style="width: 60px; height: 60px; background: #3776ab; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold;">67%</div>
+                        <div style="width: 60px; height: 60px; background: #3776ab; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 12px;">55%</div>
                         <div>Python</div>
                     </div>
                     <div style="text-align: center;">
-                        <div style="width: 60px; height: 60px; background: #F7DF1E; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000;">33%</div>
+                        <div style="width: 60px; height: 60px; background: #F7DF1E; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: black; font-size: 12px;">27%</div>
                         <div>JavaScript</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 60px; background: #1572B6; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 12px;">9%</div>
+                        <div>CSS</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 60px; background: #E34F26; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 12px;">9%</div>
+                        <div>HTML</div>
                     </div>
                 </div>
             </div>
@@ -868,23 +965,29 @@ class AdvancedPortfolio {
             setTimeout(() => this.setupTimelineChart(), 1000);
             return;
         }
-        
+
         try {
-            console.log('Creating timeline chart...');
-            // Create simple timeline data
-            const timelineData = [
-                { x: '2022-10', y: 1 },
-                { x: '2025-08', y: 4 },
-                { x: '2025-09', y: 5 },
-                { x: '2025-10', y: 8 },
-                { x: '2025-11', y: 9 }
-            ];
-            
-            new Chart(ctx, {
+            console.log('Creating timeline chart with dynamic data...');
+
+            // Destroy existing chart if it exists
+            if (this.timelineChart) {
+                this.timelineChart.destroy();
+                this.timelineChart = null;
+            }
+
+            // Use dynamic timeline data from repos.json
+            const timelineData = this.timeline || [];
+
+            if (timelineData.length === 0) {
+                console.warn('No timeline data available');
+                return;
+            }
+
+            this.timelineChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     datasets: [{
-                        label: 'Repositories Created',
+                        label: 'Total Repositories',
                         data: timelineData,
                         borderColor: '#00ffff',
                         backgroundColor: 'rgba(0, 255, 255, 0.1)',
@@ -928,7 +1031,7 @@ class AdvancedPortfolio {
                     }
                 }
             });
-            console.log('Timeline chart created successfully');
+            console.log('Timeline chart created successfully with dynamic data');
         } catch (error) {
             console.error('Error creating timeline chart:', error);
             // Fallback: Create a simple text-based chart
@@ -941,26 +1044,26 @@ class AdvancedPortfolio {
         container.innerHTML = `
             <div style="color: white; text-align: center; padding: 20px;">
                 <h4 style="margin-bottom: 15px;">Repository Timeline</h4>
-                <div style="display: flex; justify-content: space-between; align-items: end; height: 100px;">
-                    <div style="text-align: center;">
+                <div style="display: flex; justify-content: space-between; align-items: end; height: 120px; padding: 0 10px;">
+                    <div style="text-align: center; flex: 1;">
                         <div style="width: 20px; height: 11px; background: #00ffff; margin: 0 auto 5px;"></div>
-                        <small>2022</small><br><small>1 repo</small>
+                        <small>Oct'22</small><br><small>1</small>
                     </div>
-                    <div style="text-align: center;">
+                    <div style="text-align: center; flex: 1;">
                         <div style="width: 20px; height: 44px; background: #00ffff; margin: 0 auto 5px;"></div>
-                        <small>Aug 2025</small><br><small>4 repos</small>
+                        <small>Aug'25</small><br><small>4</small>
                     </div>
-                    <div style="text-align: center;">
-                        <div style="width: 20px; height: 56px; background: #00ffff; margin: 0 auto 5px;"></div>
-                        <small>Sep 2025</small><br><small>5 repos</small>
+                    <div style="text-align: center; flex: 1;">
+                        <div style="width: 20px; height: 55px; background: #00ffff; margin: 0 auto 5px;"></div>
+                        <small>Sep'25</small><br><small>5</small>
                     </div>
-                    <div style="text-align: center;">
-                        <div style="width: 20px; height: 89px; background: #00ffff; margin: 0 auto 5px;"></div>
-                        <small>Oct 2025</small><br><small>8 repos</small>
+                    <div style="text-align: center; flex: 1;">
+                        <div style="width: 20px; height: 87px; background: #00ffff; margin: 0 auto 5px;"></div>
+                        <small>Oct'25</small><br><small>8</small>
                     </div>
-                    <div style="text-align: center;">
-                        <div style="width: 20px; height: 100px; background: #00ffff; margin: 0 auto 5px;"></div>
-                        <small>Nov 2025</small><br><small>9 repos</small>
+                    <div style="text-align: center; flex: 1;">
+                        <div style="width: 20px; height: 120px; background: #00ffff; margin: 0 auto 5px;"></div>
+                        <small>Nov'25</small><br><small>11</small>
                     </div>
                 </div>
             </div>
@@ -970,47 +1073,128 @@ class AdvancedPortfolio {
     setupActivityGrid() {
         const activityGrid = document.getElementById('activity-grid');
         if (!activityGrid) return;
-        
-        // Generate activity data for the last 3 months
-        for (let i = 0; i < 84; i++) { // 7 days × 12 weeks
+
+        // Generate real activity data based on repository updates
+        const today = new Date();
+        const activityMap = new Map();
+
+        // Count repository updates per day for the last 84 days
+        this.repositories.forEach(repo => {
+            if (repo.updated) {
+                const updateDate = new Date(repo.updated);
+                const dateKey = updateDate.toDateString();
+                activityMap.set(dateKey, (activityMap.get(dateKey) || 0) + 1);
+            }
+        });
+
+        // Calculate 30-day activity stats
+        let updates30Days = 0;
+        let maxDayActivity = 0;
+
+        for (let i = 0; i < 30; i++) {
+            const date = new Date(today);
+            date.setDate(date.getDate() - i);
+            const dateKey = date.toDateString();
+            const count = activityMap.get(dateKey) || 0;
+            updates30Days += count;
+            if (count > maxDayActivity) {
+                maxDayActivity = count;
+            }
+        }
+
+        // Update 30-day stats in DOM
+        const activity30Element = document.getElementById('activity-30-days');
+        if (activity30Element) {
+            activity30Element.textContent = updates30Days;
+        }
+
+        const activityMostElement = document.getElementById('activity-most-active');
+        if (activityMostElement) {
+            activityMostElement.textContent = maxDayActivity;
+        }
+
+        // Generate grid for last 84 days (7 days × 12 weeks)
+        for (let i = 83; i >= 0; i--) {
+            const date = new Date(today);
+            date.setDate(date.getDate() - i);
+            const dateKey = date.toDateString();
+
             const day = document.createElement('div');
             day.className = 'activity-day';
-            
-            // Random activity level
-            const activity = Math.random();
-            if (activity > 0.7) day.classList.add('active');
-            
-            day.title = `Day ${i + 1}`;
+
+            const activityCount = activityMap.get(dateKey) || 0;
+
+            // Apply activity levels based on real update counts
+            if (activityCount > 0) {
+                day.classList.add('active');
+                if (activityCount >= 3) {
+                    day.classList.add('very-active');
+                }
+            }
+
+            // Format tooltip with actual activity info
+            const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            day.title = activityCount > 0
+                ? `${dateStr}: ${activityCount} update${activityCount > 1 ? 's' : ''}`
+                : `${dateStr}: No activity`;
+
             activityGrid.appendChild(day);
         }
     }
 
     renderProjects() {
         const projectsGrid = document.getElementById('projects-grid');
-        if (!projectsGrid) return;
-        
+        if (!projectsGrid) {
+            console.error('❌ Projects grid element not found');
+            return;
+        }
+
+        console.log(`🎨 Rendering ${this.repositories.length} repository cards...`);
         projectsGrid.innerHTML = '';
-        
+
+        if (this.repositories.length === 0) {
+            projectsGrid.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #fff;">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 48px; margin-bottom: 20px; color: #00ffff;"></i>
+                    <h3>No Repositories Found</h3>
+                    <p>repos.json is empty or not loaded. Please run the GitHub Actions workflow to sync your repositories.</p>
+                </div>
+            `;
+            return;
+        }
+
         this.repositories.forEach((repo, index) => {
-            const projectCard = this.createProjectCard(repo);
-            projectsGrid.appendChild(projectCard);
+            try {
+                const projectCard = this.createProjectCard(repo);
+                projectsGrid.appendChild(projectCard);
+            } catch (error) {
+                console.error(`❌ Error creating card for repo "${repo.name}":`, error);
+            }
         });
+
+        console.log(`✅ Successfully rendered ${this.repositories.length} repository cards`);
     }
 
     createProjectCard(repo) {
         const card = document.createElement('div');
         card.className = 'project-card';
-        card.dataset.language = repo.language.toLowerCase();
-        card.dataset.name = repo.name.toLowerCase();
-        card.dataset.topics = repo.topics.join(' ').toLowerCase();
-        
-        const languageColor = this.languageColors[repo.language] || '#ffffff';
+
+        // Handle null/undefined values safely
+        const language = repo.language || 'Unknown';
+        const topics = repo.topics || [];
+        const description = repo.description || 'No description available';
+
+        card.dataset.language = language.toLowerCase();
+        card.dataset.name = (repo.name || '').toLowerCase();
+        card.dataset.topics = topics.join(' ').toLowerCase();
+
+        const languageColor = this.languageColors[language] || '#999999';
         const updatedDate = new Date(repo.updated).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'short',
             day: 'numeric'
         });
-        
+
         card.innerHTML = `
             <div class="project-header">
                 <h3 class="project-title">${repo.name}</h3>
@@ -1023,71 +1207,76 @@ class AdvancedPortfolio {
                     </a>
                 </div>
             </div>
-            
-            <p class="project-description">${repo.description}</p>
-            
+
+            <p class="project-description">${description}</p>
+
             <div class="project-topics">
-                ${repo.topics.map(topic => `<span class="topic-tag">${topic}</span>`).join('')}
+                ${topics.map(topic => `<span class="topic-tag">${topic}</span>`).join('')}
             </div>
-            
+
             <div class="project-meta">
                 <div class="project-stats">
                     <div class="stat-item">
                         <span class="language-dot" style="background-color: ${languageColor}"></span>
-                        ${repo.language}
+                        ${language}
                     </div>
                     <div class="stat-item">
                         <i class="fas fa-star"></i>
-                        ${repo.stars}
+                        ${repo.stars || 0}
                     </div>
                     <div class="stat-item">
                         <i class="fas fa-code-branch"></i>
-                        ${repo.forks}
+                        ${repo.forks || 0}
                     </div>
                 </div>
                 <div class="updated-date">${updatedDate}</div>
             </div>
         `;
-        
+
         return card;
     }
 
     setupTimeline() {
         const timelineItems = document.getElementById('timeline-items');
         if (!timelineItems) return;
-        
+
         const timelineData = [
             {
                 date: 'March 2018',
-                title: 'Started GitHub Journey',
-                description: 'Joined GitHub and began exploring the world of programming with Python.'
+                title: 'The Beginning',
+                description: 'Joined GitHub and started exploring the vast world of programming. First steps into Python development and understanding version control systems.'
             },
             {
                 date: 'October 2022',
-                title: 'First Security Project',
-                description: 'Created RPG (Random Password Generator) - focusing on security and encryption.'
+                title: 'Security & Encryption Focus',
+                description: 'Launched RPG (Random Password Generator) - my first security-focused Python project. Developed strong foundations in cryptographic principles and secure password generation algorithms.'
             },
             {
                 date: 'August 2025',
-                title: 'GUI Development Mastery',
-                description: 'Developed multiple Python GUI applications including Media Organizer, File Mover, and Clipboard Manager.'
+                title: 'GUI Development Renaissance',
+                description: 'Breakthrough into GUI development with PySide6. Created Python-GUI-Media-Organizer and Python-GUI-Mover—powerful desktop applications for file management. Mastered event-driven programming and modern UI/UX design patterns.'
             },
             {
                 date: 'September 2025',
-                title: 'Advanced Automation',
-                description: 'Built sophisticated tools like Duplicate File Finder with SHA-256 hashing and automation features.'
+                title: 'Advanced File Operations',
+                description: 'Built Python-GUI-Clipboard-Manager with OCR capabilities and Quick Paste features. Developed Python-GUI-Duplicate-File-Finder using SHA-256 hashing for enterprise-grade duplicate detection. Enhanced skills in multithreading and database integration with SQLite.'
             },
             {
                 date: 'October 2025',
-                title: 'Modern Portfolio',
-                description: 'Launched advanced portfolio website with Three.js animations and real-time GitHub integration.'
+                title: 'Web & Cloud Expansion',
+                description: 'Launched this advanced portfolio website with Three.js 3D animations and Chart.js analytics. Deployed microfeed CMS on Cloudflare Workers. Created Python-CLI-Email-Validator for robust email verification. Expanded into full-stack web development with modern frameworks.'
+            },
+            {
+                date: 'November 2025',
+                title: 'Multi-Platform Innovation',
+                description: 'Deployed CloudPaste—a Cloudflare-based file sharing platform with Markdown rendering, WebDAV support, and S3 storage integration. Built modern URL shortener with glassmorphism UI and analytics. Developed Telegram TikTok Downloader bot. Ventured into IoT with ESP01 DDNS client in C. Curated games-collection featuring 1000+ HTML5 games.'
             }
         ];
         
         timelineData.forEach((item, index) => {
             const timelineItem = document.createElement('div');
             timelineItem.className = 'timeline-item';
-            
+
             timelineItem.innerHTML = `
                 <div class="timeline-content">
                     <div class="timeline-date">${item.date}</div>
@@ -1096,9 +1285,82 @@ class AdvancedPortfolio {
                 </div>
                 <div class="timeline-dot"></div>
             `;
-            
+
             timelineItems.appendChild(timelineItem);
         });
+
+        // Setup GSAP animation for timeline items after they're created
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+            const timelineItemElements = document.querySelectorAll('.timeline-item');
+            if (timelineItemElements.length > 0) {
+                // Ensure timeline items are visible
+                gsap.set('.timeline-item', { clearProps: 'all' });
+
+                gsap.fromTo('.timeline-item',
+                    (index) => ({
+                        x: index % 2 === 0 ? -100 : 100,
+                        opacity: 0
+                    }),
+                    {
+                        duration: 0.8,
+                        x: 0,
+                        opacity: 1,
+                        stagger: 0.2,
+                        ease: 'power2.out',
+                        clearProps: 'transform',
+                        scrollTrigger: {
+                            trigger: '.timeline-section',
+                            start: 'top 80%'
+                        }
+                    }
+                );
+            }
+        }
+    }
+
+    setupSkills() {
+        const skillsList = document.querySelector('.skills-list');
+        if (!skillsList) return;
+
+        // Clear existing skills
+        skillsList.innerHTML = '';
+
+        if (this.languageStats.length === 0) {
+            console.warn('No language stats available for skills');
+            return;
+        }
+
+        // Generate skill items from languageStats
+        this.languageStats.forEach(stat => {
+            const skillItem = document.createElement('div');
+            skillItem.className = 'skill-item';
+            skillItem.dataset.level = Math.round(stat.percentage);
+
+            const color = this.languageColors[stat.language] || '#999999';
+
+            skillItem.innerHTML = `
+                <div class="skill-info">
+                    <span class="skill-name">${stat.language}</span>
+                    <span class="skill-percentage">${Math.round(stat.percentage)}%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-fill" style="--skill-color: ${color}"></div>
+                </div>
+            `;
+
+            skillsList.appendChild(skillItem);
+        });
+
+        // Animate skill bars after a delay
+        setTimeout(() => {
+            document.querySelectorAll('.skill-item').forEach(item => {
+                const level = item.dataset.level;
+                const skillFill = item.querySelector('.skill-fill');
+                if (skillFill && level) {
+                    skillFill.style.width = `${level}%`;
+                }
+            });
+        }, 500);
     }
 
     startTypingAnimation() {
@@ -1204,11 +1466,15 @@ class AdvancedPortfolio {
     startAnimationLoop() {
         const animate = (time) => {
             this.frameCount++;
-            
-            // Update Three.js scene
-            if (this.particles && this.particles.material.uniforms) {
+
+            // Update Three.js scene with safety checks
+            if (this.particles && this.particles.material && this.particles.material.uniforms && this.particles.material.uniforms.time) {
                 this.particles.rotation.y += 0.002;
-                this.particles.material.uniforms.time.value = time * 0.001;
+                try {
+                    this.particles.material.uniforms.time.value = time * 0.001;
+                } catch (error) {
+                    console.warn('Error updating shader uniform:', error);
+                }
             }
             
             // Animate floating shapes
