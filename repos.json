@@ -1,23 +1,41 @@
 {
   "username": "ragilmalik",
-  "lastUpdated": "2026-11-05T05:44:28Z",
+  "lastUpdated": "2026-11-06T05:41:34Z",
   "stats": {
-    "totalRepos": 30,
+    "totalRepos": 32,
     "followers": 5,
     "yearsActive": 8
   },
   "repositories": [
+    {
+      "name": "dalang-ai",
+      "description": null,
+      "language": "Python",
+      "stars": 0,
+      "forks": 0,
+      "updated": "2026-11-06",
+      "url": "https://github.com/ragilmalik/dalang-ai",
+      "topics": [],
+      "created_at": "2026-11-05",
+      "size": 235112,
+      "homepage": null,
+      "is_fork": false,
+      "default_branch": "main",
+      "open_issues": 0,
+      "watchers": 0,
+      "license": "MIT License"
+    },
     {
       "name": "starred-repos",
       "description": "Collection of my starred repositories, updated automatically.",
       "language": "HTML",
       "stars": 0,
       "forks": 0,
-      "updated": "2026-11-05",
+      "updated": "2026-11-06",
       "url": "https://github.com/ragilmalik/starred-repos",
       "topics": [],
       "created_at": "2025-11-19",
-      "size": 43839,
+      "size": 44108,
       "homepage": "http://github.ragilmalik.com/starred-repos/",
       "is_fork": false,
       "default_branch": "main",
@@ -26,16 +44,34 @@
       "license": null
     },
     {
+      "name": "tukang-copilot",
+      "description": null,
+      "language": "Python",
+      "stars": 0,
+      "forks": 0,
+      "updated": "2026-11-06",
+      "url": "https://github.com/ragilmalik/tukang-copilot",
+      "topics": [],
+      "created_at": "2026-11-05",
+      "size": 190993,
+      "homepage": null,
+      "is_fork": false,
+      "default_branch": "main",
+      "open_issues": 1,
+      "watchers": 0,
+      "license": "MIT License"
+    },
+    {
       "name": "ragilmalik.github.io",
       "description": "Github Pages Portofolio. Updated automatically.",
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "updated": "2026-11-04",
+      "updated": "2026-11-05",
       "url": "https://github.com/ragilmalik/ragilmalik.github.io",
       "topics": [],
       "created_at": "2025-10-04",
-      "size": 315,
+      "size": 319,
       "homepage": "https://github.ragilmalik.com/",
       "is_fork": false,
       "default_branch": "main",
@@ -551,15 +587,15 @@
   "languageStats": [
     {
       "language": "Python",
-      "percentage": 27
+      "percentage": 35
     },
     {
       "language": "JavaScript",
-      "percentage": 27
+      "percentage": 25
     },
     {
       "language": "HTML",
-      "percentage": 22
+      "percentage": 20
     },
     {
       "language": "Vue",
@@ -614,6 +650,10 @@
     {
       "x": "2026-04",
       "y": 30
+    },
+    {
+      "x": "2026-11",
+      "y": 32
     }
   ],
   "skills": [],
