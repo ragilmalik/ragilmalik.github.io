@@ -1,0 +1,205 @@
+{
+  "version": 2,
+  "eyebrow": "Software builder in Semarang, Indonesia · Taking on new projects",
+  "title": "I build the tool you keep wishing existed.",
+  "summary": "I'm Malik. I turn slow, repetitive work into software people actually use: AI apps that see and listen, Telegram and WhatsApp bots, web tools that cost almost nothing to run, and Windows apps your team will open every day. In under two weeks of a Meta hackathon I built two working AI products on my own. Bring me the problem and I'll bring you a working first version.",
+  "roles": [
+    "AI product builder",
+    "Automation and bot developer",
+    "Python desktop app developer",
+    "Web and Cloudflare builder",
+    "The person you call with a messy problem"
+  ],
+  "featuredRepositories": ["dalang-ai", "tukang-copilot", "telegram-tiktok-downloader", "Python-GUI-Clipboard-Manager"],
+  "chapters": [
+    {
+      "id": "account",
+      "date": "2018-03",
+      "title": "I signed up long before I had anything to show.",
+      "body": "My GitHub account dates to March 2018. For years I learned off the record, with nothing public to point at. What I kept from that time is the habit that runs my work today: when something wastes my time twice, I build my way out of it.",
+      "repositories": []
+    },
+    {
+      "id": "rpg",
+      "date": "2022-10",
+      "title": "The first tool I built was for me.",
+      "body": "RPG, a random password generator, is my oldest public repository. I was tired of inventing passwords by hand and reusing the old ones, so I made the computer do it. It's a small program. It also taught me the idea I sell today: if you can describe a chore, I can probably automate it.",
+      "repositories": ["RPG"]
+    },
+    {
+      "id": "desktop-tools",
+      "date": "2025-08",
+      "title": "Windows kept slowing me down, so I rebuilt its tools.",
+      "body": "Moving files in Explorer felt clumsy, so I built Python-GUI-Mover. My camera roll was chaos, so Python-GUI-Media-Organizer files every photo and video into folders by the date it was taken. These were the first apps I made for other people to run without me sitting next to them.",
+      "repositories": ["Python-GUI-Mover", "Python-GUI-Media-Organizer"]
+    },
+    {
+      "id": "edge-cases",
+      "date": "2025-09",
+      "title": "People trust a tool because of the small details.",
+      "body": "My clipboard manager remembers everything you copy, drops duplicates with SHA-256, pins your top ten and opens a paste palette that never steals focus from the app you're in. The duplicate finder moves files instead of deleting them, lets you run a simulation first and writes an Excel log you can hand to your boss. I've learned those details decide whether a tool stays installed after the first week.",
+      "repositories": ["Python-GUI-Clipboard-Manager", "Python-GUI-Duplicate-File-Finder"]
+    },
+    {
+      "id": "web",
+      "date": "2025-10",
+      "title": "Then I took the same habit online.",
+      "body": "In October 2025 I built the first version of this portfolio and an email-list cleaner for anyone tired of bounced campaigns. It reads Excel or CSV, backs up the original file, checks the syntax of every address and confirms each domain can receive mail, before you pay to send a single message.",
+      "repositories": ["ragilmalik.github.io", "Python-CLI-Email-Validator"]
+    },
+    {
+      "id": "shipping-month",
+      "date": "2025-11",
+      "title": "One month, eleven public projects.",
+      "body": "November 2025 was my busiest month on GitHub. I shipped an ad-free URL shortener with bulk mode and custom links, an anonymous venting board, a Telegram bot that downloads videos from more than 15 platforms, and a batch Git cloner for the day someone hands me a spreadsheet of 50 repositories. I also turned a $2 ESP-01 chip into a dynamic-DNS updater for Cloudflare, so a home server stays reachable after the internet provider changes its IP.",
+      "repositories": ["shortener", "venting", "telegram-tiktok-downloader", "git-cloner", "esp01-ddns", "games-collection", "ESP32-ESP8266", "Python-Collection"]
+    },
+    {
+      "id": "cloudflare",
+      "date": "2026-03",
+      "title": "Learning the serverless stack by taking it apart.",
+      "body": "temp-mail runs a disposable inbox on Cloudflare Workers, D1, R2 and KV. Next to it sit forks of image hosts and mail services that I opened up to learn how they work. They stay labelled as forks: I study good code and I credit it, and I'd treat your codebase with the same respect.",
+      "repositories": ["temp-mail", "telegraph", "cloudflare-image-hosting", "cloudflare-image-storage", "cloud-mail"]
+    },
+    {
+      "id": "ai-products",
+      "date": "2026-11",
+      "title": "Two AI products, built solo in Semarang.",
+      "body": "For the Meta Global AI Developer Hackathon in late October 2026 I built two complete apps on my own. Dalang AI came from home: wayang kulit is still part of life here in Central Java, and I wanted kids to see their own stories on the screen. A child tells a story out loud and six Meta models turn it into a shadow-puppet film narrated in their language, backed by 546 automated tests. Tukang Copilot takes a photo of something broken and a sentence in Bahasa Indonesia, Javanese or English, outlines the faulty part on your photo, plans the repair and checks each step with the camera. When a job is dangerous, it tells you to stop.",
+      "repositories": ["dalang-ai", "tukang-copilot"]
+    }
+  ],
+  "services": [
+    {
+      "id": "ai-apps",
+      "title": "AI apps that see, listen and answer",
+      "pitch": "If someone on your team has to look at a photo, listen to a voice note or read a message before they can decide, I can build an app that does the first pass. It works in Bahasa Indonesia, Javanese and English, and it shows you what every answer cost.",
+      "deliverables": [
+        "Photo, voice and text in one pipeline (vision, speech, language models)",
+        "Safety rules enforced in code and tested against prompt attacks",
+        "A cost and speed report for every request",
+        "A phone-first web app, with WhatsApp as an option"
+      ],
+      "proof": ["dalang-ai", "tukang-copilot"],
+      "subject": "AI app project"
+    },
+    {
+      "id": "automation",
+      "title": "Bots and automation that clear your queue",
+      "pitch": "Copying, pasting, downloading, cleaning lists, chasing reports: if it happens every day, it can run by itself. I build Telegram and WhatsApp bots, batch tools and scheduled jobs that finish with a tidy Excel report.",
+      "deliverables": [
+        "Telegram and WhatsApp bots with an admin view",
+        "Batch jobs for files, links, repositories and email lists",
+        "Excel and CSV reports your manager can read",
+        "Error handling and retries, so a bad input never stops the run"
+      ],
+      "proof": ["telegram-tiktok-downloader", "git-cloner", "Python-CLI-Email-Validator"],
+      "subject": "Automation project"
+    },
+    {
+      "id": "web",
+      "title": "Web tools that cost almost nothing to run",
+      "pitch": "URL shorteners, temporary inboxes, community boards, landing pages and portfolios like this one. I build them fast, dark and self-hosted on Cloudflare or a small server, so you stop paying a monthly fee for something simple.",
+      "deliverables": [
+        "A fast site or web app on your own domain",
+        "Cloudflare Workers, D1, R2 and KV when serverless fits",
+        "Mobile layouts, accessibility checks and SEO basics",
+        "Hardware hooks when you need them (ESP8266 and ESP32)"
+      ],
+      "proof": ["shortener", "temp-mail", "venting", "esp01-ddns", "ragilmalik.github.io"],
+      "subject": "Web project"
+    },
+    {
+      "id": "desktop",
+      "title": "Windows apps your team will open every day",
+      "pitch": "Desktop tools with a real interface: progress bars with an ETA, a simulation run before anything moves, files moved to a folder instead of deleted, and logs you can hand to anyone. Packaged with PyInstaller, so nobody needs Python installed.",
+      "deliverables": [
+        "A Python desktop app (PySide6 or Tkinter) with a clean UI",
+        "Safe defaults: simulation mode, move instead of delete, backups",
+        "Excel logs and exports (XLSX, CSV, TXT)",
+        "A packaged app and a plain-language README"
+      ],
+      "proof": ["Python-GUI-Clipboard-Manager", "Python-GUI-Duplicate-File-Finder", "Python-GUI-Mover", "Python-GUI-Media-Organizer"],
+      "subject": "Desktop app project"
+    }
+  ],
+  "process": [
+    { "title": "Tell me the job", "body": "Email me what slows you down, in English or Bahasa Indonesia. A rough description is enough." },
+    { "title": "Get a plan and a first version", "body": "I reply with how I'd build it, then I build a working first version you can try on real work." },
+    { "title": "Use it, then hand it over", "body": "I fix what your real use turns up, then hand you the code, tests and a README anyone can follow." }
+  ],
+  "caseStudies": {
+    "dalang-ai": {
+      "pitch": "A child tells a story out loud. Six Meta models turn it into a Javanese shadow-puppet film in their language.",
+      "story": "I built Dalang AI solo for the Meta Global AI Developer Hackathon because wayang kulit is still part of growing up here in Central Java, and I wanted kids to see their own stories on the kelir. A story of up to 90 seconds in Bahasa Indonesia, Basa Jawa or English becomes a narrated film in 16:9 and 9:16. Under the hood the models check the script, draw the puppets, cut them out and plan the motion, and a cultural review checks the result. The project has 546 automated tests at 95% line coverage and an accessibility audit with zero violations.",
+      "hireFor": "Multimodal AI products, model orchestration, and apps for local languages"
+    },
+    "tukang-copilot": {
+      "pitch": "Point your phone at something broken. It marks the faulty part, plans the fix, checks your work and stops you when it's dangerous.",
+      "story": "Tukang Copilot turns a phone into a mechanic's apprentice. You take a photo and describe the problem in Bahasa Indonesia, Javanese or English. It outlines the exact part on your photo, works out the likely fault, plans the repair, checks each step with the camera and re-plans when the thing is still broken. In my live evaluation the safety gate stopped 23 of 23 dangerous requests with no false stops on 17 everyday jobs, and a repair plan cost about $0.04 to $0.07. It also has a WhatsApp channel, tested in a simulator: send a photo and a voice note and the marked photo and steps come back.",
+      "hireFor": "AI assistants with safety rules, computer vision, and WhatsApp channels"
+    },
+    "telegram-tiktok-downloader": {
+      "pitch": "Paste a link into Telegram and the video lands in your chat. More than 15 platforms, no ads, with an admin dashboard.",
+      "story": "I wanted saving a video to be as easy as sending a message, so I built a Telegram bot for it. Paste a TikTok, Instagram, YouTube, X, Facebook or Reddit link and the bot sends the video back. It caches repeat downloads, handles failures without crashing and comes with a dark admin panel with usage analytics.",
+      "hireFor": "Telegram bots, media pipelines and admin dashboards"
+    },
+    "Python-GUI-Clipboard-Manager": {
+      "pitch": "A private clipboard history for Windows: search everything you copied, pin your top ten, paste from a palette that never steals focus.",
+      "story": "Pressing Ctrl+C twice and losing the first copy was the push. The app saves text, links and images, drops duplicates with SHA-256, lets you pin ten favourites and drag items into your own order, and exports to CSV, TXT or XLSX. Optional OCR reads text out of images. Everything stays on your machine in SQLite.",
+      "hireFor": "Windows desktop apps with a polished UI"
+    },
+    "Python-GUI-Duplicate-File-Finder": {
+      "pitch": "Find duplicate files by SHA-256, move them aside safely and get an Excel log you can hand to anyone.",
+      "story": "Deleting the wrong file is worse than keeping a duplicate, so this tool never deletes. It matches files by SHA-256, picks the original by name, moves copies into a Duplicates folder and offers a simulation run first. A hash cache means unchanged files are never hashed twice.",
+      "hireFor": "File automation with safe defaults"
+    },
+    "shortener": {
+      "pitch": "A self-hosted URL shortener with custom links, bulk mode for 50 links at once, and no ads.",
+      "story": "I wanted short links on my own domain without ads, so I built one. It supports custom codes, links of 5 to 20 characters and bulk shortening of up to 50 URLs at once, on a pure black design.",
+      "hireFor": "Self-hosted web tools on your own domain"
+    },
+    "git-cloner": {
+      "pitch": "Hand it a spreadsheet of Git URLs and it clones every one, then writes a styled Excel report.",
+      "story": "Someone handed me a spreadsheet with 50 GitHub links and wanted the code. Typing git clone 50 times wasn't happening. The tool reads TXT, CSV, XLSX or pasted URLs, carries its own portable Git so nothing needs installing, renames folders instead of crashing on duplicates and ends with a report.",
+      "hireFor": "Batch tools for repetitive office work"
+    },
+    "Python-CLI-Email-Validator": {
+      "pitch": "Clean an email list before you pay to send: syntax checks, noreply filters and live domain checks.",
+      "story": "Sending to dead addresses costs money and hurts your sender reputation. This tool takes an Excel or CSV list, backs up the original, checks every address, filters noreply addresses and confirms each domain can receive mail, using many threads so big lists finish fast.",
+      "hireFor": "Data cleaning and list processing"
+    },
+    "esp01-ddns": {
+      "pitch": "A $2 ESP-01 chip that keeps your Cloudflare DNS pointed at your home IP.",
+      "story": "A home IP that keeps changing breaks remote access to anything you run at home. This firmware turns an ESP-01 module into an automatic dynamic-DNS client for Cloudflare, with setup, power-saving and troubleshooting written up step by step.",
+      "hireFor": "Small IoT and hardware integrations"
+    },
+    "venting": {
+      "pitch": "An anonymous posting board built for privacy, with a fast dark interface.",
+      "story": "Most anonymous boards I tried looked neglected and treated privacy as an afterthought. Venting puts anonymity first and wraps it in a fast, pure black interface that refreshes without interrupting what you're reading.",
+      "hireFor": "Community sites and privacy-first web apps"
+    },
+    "temp-mail": {
+      "pitch": "A disposable inbox on Cloudflare Workers, D1, R2 and KV, in 10 languages.",
+      "story": "A temporary inbox for sign-ups and one-time codes, so your real address stays private. Built on the open-source smail project, it runs entirely on Cloudflare: Workers receive the mail, D1 stores the metadata, R2 keeps the raw messages and KV holds sessions.",
+      "hireFor": "Serverless apps on Cloudflare"
+    }
+  },
+  "throughline": {
+    "title": "Why people hire a builder like me",
+    "body": "I treat your problem as if it were mine, because that's how every one of my tools started. I get a working version in front of you fast, then I do the part most people skip: the odd cases, the safety checks, the tests and a README a non-programmer can follow. You end up with software you can run, read and hand to someone else. I write in English and Bahasa Indonesia, and I've shipped interfaces in Javanese.",
+    "quote": "If it wastes your time twice, it's worth building."
+  },
+  "closing": {
+    "title": "Got a job that eats your week? Let's automate it.",
+    "body": "Tell me what's slowing you down: a manual report, a support queue, an idea for an AI app or a tool your team keeps asking for. I'll reply with how I'd build it and what the first working version would look like. I work remotely from Semarang (GMT+7) and I'm happy to work with teams anywhere.",
+    "contactLabel": "Tell me about your project"
+  },
+  "accuracyNotes": {
+    "repositoryDates": "Timeline dates come from GitHub repository creation dates.",
+    "accountDate": "The 2018 date is when the GitHub account was created.",
+    "repositoryLanguages": "Language counts use GitHub's primary-language label per repository.",
+    "forks": "Forks are labelled as forks and are not claimed as original work.",
+    "figures": "Test counts, costs and evaluation results are quoted from each project's own README."
+  }
+}
