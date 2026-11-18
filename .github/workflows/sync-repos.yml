@@ -76,7 +76,6 @@ jobs:
 
           jq -n \
             --arg username "$USERNAME" \
-            --argjson profile "$(cat profile.json)" \
             --argjson totalRepos "$TOTAL" \
             --argjson originalRepos "$ORIG" \
             --argjson forkedRepos "$FORKS" \
@@ -84,20 +83,28 @@ jobs:
             --argjson following "$FOLLOWING" \
             --argjson yearsActive "$YEARS" \
             --argjson totalStars "$STARS" \
-            --argjson repositories "$(cat repos_list.json)" \
-            --argjson languageStats "$LANG_PERCENTAGES" \
-            --argjson timeline "$TIMELINE" \
-            --argjson skills "$SKILLS" \
-            --argjson languages "$LANGUAGES" \
             --arg lastUpdated "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-            '{username: $username, lastUpdated: $lastUpdated, profile: $profile,
+            '{username: $username, lastUpdated: $lastUpdated,
               stats: {totalRepos: $totalRepos, originalRepos: $originalRepos, forkedRepos: $forkedRepos,
                       followers: $followers, following: $following, yearsActive: $yearsActive,
-                      yearsOnGitHub: $yearsActive, totalStars: $totalStars},
-              repositories: $repositories, languageStats: $languageStats,
-              timeline: $timeline, skills: $skills, languages: $languages}' > repos.json
+                      yearsOnGitHub: $yearsActive, totalStars: $totalStars}}' > stats.json
 
-          rm -f profile.json repos_list.json
+          jq -s \
+            --arg username "$USERNAME" \
+            --arg lastUpdated "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            '{
+              username: $username,
+              lastUpdated: $lastUpdated,
+              profile: .[0],
+              stats: .[1],
+              repositories: .[2],
+              languageStats: .[3],
+              timeline: .[4],
+              skills: .[5],
+              languages: .[6]
+            }' profile.json stats.json repos_list.json <(echo "$LANG_PERCENTAGES") <(echo "$TIMELINE") <(echo "$SKILLS") <(echo "$LANGUAGES") > repos.json
+
+          rm -f profile.json repos_list.json stats.json
 
       - name: Commit and push if changed
         run: |
