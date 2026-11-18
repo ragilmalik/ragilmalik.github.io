@@ -1,4 +1,4 @@
-# 🚀 Malik's Portfolio — v4 Flagship
+# 🚀 Malik's Portfolio
 
 <div align="center">
 
