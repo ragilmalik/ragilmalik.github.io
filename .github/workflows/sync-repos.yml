@@ -22,23 +22,24 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_TOKEN || github.token }}
         run: |
           USERNAME="ragilmalik"
-          USER=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/users/$USERNAME")
 
-          echo "$USER" | jq '{login, name, bio, location, blog, avatar_url, html_url, public_repos, followers, following, created_at}' > profile.json
+          curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/users/$USERNAME" > user.json
+          jq '{login, name, bio, location, blog, avatar_url, html_url, public_repos, followers, following, created_at}' user.json > profile.json
 
-          # Fetch all public repos, following pagination
-          REPOS=[]
-          PAGE=1
-          while :; do
-            BATCH=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-              "https://api.github.com/users/$USERNAME/repos?type=public&per_page=100&page=$PAGE&sort=updated")
-            COUNT=$(echo "$BATCH" | jq 'length')
-            [ "$COUNT" = "0" ] && break
-            REPOS=$(echo "$REPOS" | jq --argjson b "$BATCH" '. + $b')
-            PAGE=$((PAGE+1))
+          rm -f page_*.json
+          for page in $(seq 1 20); do
+            curl -s -H "Authorization: token $GITHUB_TOKEN" \
+              "https://api.github.com/users/$USERNAME/repos?type=public&per_page=100&page=$page&sort=updated" \
+              > "page_$page.json"
+            if [ "$(jq 'length' "page_$page.json")" = "0" ]; then
+              rm -f "page_$page.json"
+              break
+            fi
           done
+          jq -s 'add' page_*.json > repos_all.json
+          rm -f page_*.json
 
-          echo "$REPOS" | jq '[.[] | {
+          jq '[.[] | {
             id, node_id, name, full_name,
             owner: .owner.login,
             description, language,
@@ -53,41 +54,26 @@ jobs:
             is_fork: .fork, fork, archived, disabled,
             visibility, default_branch,
             license: (if .license then {name: .license.name, spdx_id: .license.spdx_id} else null end)
-          }] | sort_by(.updated_at) | reverse' > repos_list.json
+          }] | sort_by(.updated_at) | reverse' repos_all.json > repos_list.json
 
-          TOTAL=$(echo "$REPOS" | jq 'length')
-          ORIG=$(echo "$REPOS" | jq '[.[] | select(.fork == false)] | length')
-          FORKS=$(echo "$REPOS" | jq '[.[] | select(.fork == true)] | length')
-          FOLLOWERS=$(echo "$USER" | jq -r '.followers')
-          FOLLOWING=$(echo "$USER" | jq -r '.following')
-          CREATED_YEAR=$(echo "$USER" | jq -r '.created_at' | cut -d'-' -f1)
+          TOTAL=$(jq 'length' repos_all.json)
+          ORIG=$(jq '[.[] | select(.fork == false)] | length' repos_all.json)
+          FORKS=$(jq '[.[] | select(.fork == true)] | length' repos_all.json)
+          FOLLOWERS=$(jq -r '.followers' user.json)
+          FOLLOWING=$(jq -r '.following' user.json)
+          CREATED_YEAR=$(jq -r '.created_at[0:4]' user.json)
           CURRENT_YEAR=$(date -u +%Y)
           YEARS=$((CURRENT_YEAR - CREATED_YEAR))
-          STARS=$(echo "$REPOS" | jq '[.[] | .stargazers_count] | add // 0')
+          STARS=$(jq '[.[] | .stargazers_count] | add // 0' repos_all.json)
 
-          LANG_STATS=$(echo "$REPOS" | jq '[.[] | select(.language != null) | .language] | group_by(.) | map({language: .[0], count: length}) | sort_by(.count) | reverse')
-          TOTAL_LANGS=$(echo "$LANG_STATS" | jq 'map(.count) | add // 0')
-          LANG_PERCENTAGES=$(echo "$LANG_STATS" | jq --argjson total "$TOTAL_LANGS" 'map({language, count, percentage: ((.count / $total) * 100 | floor * 100 / 100)})')
+          jq '[.[] | select(.language != null) | .language] | group_by(.) | map({language: .[0], count: length}) | sort_by(.count) | reverse' repos_all.json > lang_stats.json
+          TOTAL_LANGS=$(jq 'map(.count) | add // 0' lang_stats.json)
+          jq --argjson total "$TOTAL_LANGS" 'map({language, count, percentage: ((.count / $total) * 100 | floor * 100 / 100)})' lang_stats.json > lang_percent.json
 
-          TIMELINE=$(echo "$REPOS" | jq '[.[] | .created_at] | map(.[0:7]) | group_by(.) | map({x: .[0], created: length}) | sort_by(.x) | reduce .[] as $item ([]; . + [{x: $item.x, created: $item.created, y: ((if length > 0 then .[-1].y else 0 end) + $item.created)}])')
+          jq '[.[] | .created_at] | map(.[0:7]) | group_by(.) | map({x: .[0], created: length}) | sort_by(.x) | reduce .[] as $item ([]; . + [{x: $item.x, created: $item.created, y: ((if length > 0 then .[-1].y else 0 end) + $item.created)}])' repos_all.json > timeline.json
 
-          SKILLS=$(echo "$REPOS" | jq '[.[] | .topics // []] | flatten | unique | sort')
-          LANGUAGES=$(echo "$REPOS" | jq '[.[] | .language // empty] | unique | sort')
-
-          jq -n \
-            --arg username "$USERNAME" \
-            --argjson totalRepos "$TOTAL" \
-            --argjson originalRepos "$ORIG" \
-            --argjson forkedRepos "$FORKS" \
-            --argjson followers "$FOLLOWERS" \
-            --argjson following "$FOLLOWING" \
-            --argjson yearsActive "$YEARS" \
-            --argjson totalStars "$STARS" \
-            --arg lastUpdated "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-            '{username: $username, lastUpdated: $lastUpdated,
-              stats: {totalRepos: $totalRepos, originalRepos: $originalRepos, forkedRepos: $forkedRepos,
-                      followers: $followers, following: $following, yearsActive: $yearsActive,
-                      yearsOnGitHub: $yearsActive, totalStars: $totalStars}}' > stats.json
+          jq '[.[] | .topics // []] | flatten | unique | sort' repos_all.json > skills.json
+          jq '[.[] | .language // empty] | unique | sort' repos_all.json > languages.json
 
           jq -s \
             --arg username "$USERNAME" \
@@ -96,15 +82,27 @@ jobs:
               username: $username,
               lastUpdated: $lastUpdated,
               profile: .[0],
-              stats: .[1],
-              repositories: .[2],
-              languageStats: .[3],
-              timeline: .[4],
-              skills: .[5],
-              languages: .[6]
-            }' profile.json stats.json repos_list.json <(echo "$LANG_PERCENTAGES") <(echo "$TIMELINE") <(echo "$SKILLS") <(echo "$LANGUAGES") > repos.json
+              stats: {
+                totalRepos: .[1],
+                originalRepos: .[2],
+                forkedRepos: .[3],
+                followers: .[4],
+                following: .[5],
+                yearsActive: .[6],
+                yearsOnGitHub: .[6],
+                totalStars: .[7]
+              },
+              repositories: .[8],
+              languageStats: .[9],
+              timeline: .[10],
+              skills: .[11],
+              languages: .[12]
+            }' \
+            profile.json \
+            <(echo "$TOTAL") <(echo "$ORIG") <(echo "$FORKS") <(echo "$FOLLOWERS") <(echo "$FOLLOWING") <(echo "$YEARS") <(echo "$STARS") \
+            repos_list.json lang_percent.json timeline.json skills.json languages.json > repos.json
 
-          rm -f profile.json repos_list.json stats.json
+          rm -f user.json profile.json repos_all.json repos_list.json lang_stats.json lang_percent.json timeline.json skills.json languages.json
 
       - name: Commit and push if changed
         run: |
