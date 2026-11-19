@@ -1,6 +1,6 @@
 {
   "username": "ragilmalik",
-  "lastUpdated": "2026-11-18T08:30:43Z",
+  "lastUpdated": "2026-11-19T06:32:31Z",
   "profile": {
     "login": "ragilmalik",
     "name": "Malik",
@@ -32,7 +32,7 @@
       "full_name": "ragilmalik/ragilmalik.github.io",
       "owner": "ragilmalik",
       "description": "Github Pages Portofolio. Updated automatically.",
-      "language": "JavaScript",
+      "language": "HTML",
       "stars": 0,
       "stargazers_count": 0,
       "forks": 0,
@@ -41,14 +41,14 @@
       "watchers_count": 0,
       "open_issues": 1,
       "open_issues_count": 1,
-      "updated": "2026-11-12",
-      "updated_at": "2026-11-12T07:21:33Z",
+      "updated": "2026-11-18",
+      "updated_at": "2026-11-18T09:27:59Z",
       "url": "https://github.com/ragilmalik/ragilmalik.github.io",
       "html_url": "https://github.com/ragilmalik/ragilmalik.github.io",
       "topics": [],
       "created_at": "2025-10-04T14:05:21Z",
-      "pushed_at": "2026-11-18T08:30:29Z",
-      "size": 347,
+      "pushed_at": "2026-11-18T08:38:43Z",
+      "size": 1009,
       "homepage": "https://github.ragilmalik.com/",
       "is_fork": false,
       "fork": false,
@@ -80,8 +80,8 @@
       "html_url": "https://github.com/ragilmalik/starred-repos",
       "topics": [],
       "created_at": "2025-11-19T03:51:39Z",
-      "pushed_at": "2026-11-18T05:25:26Z",
-      "size": 47351,
+      "pushed_at": "2026-11-19T05:22:17Z",
+      "size": 47624,
       "homepage": "http://github.ragilmalik.com/starred-repos/",
       "is_fork": false,
       "fork": false,
@@ -1134,12 +1134,12 @@
       "percentage": 35
     },
     {
-      "language": "JavaScript",
+      "language": "HTML",
       "count": 5,
       "percentage": 25
     },
     {
-      "language": "HTML",
+      "language": "JavaScript",
       "count": 4,
       "percentage": 20
     },
